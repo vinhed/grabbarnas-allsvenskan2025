@@ -1,7 +1,7 @@
 // src/components/TeamLogo.js
 import React, { useState } from 'react';
 
-const TeamLogo = ({ team, logoUrl }) => {
+const TeamLogo = ({ team, logoUrl, size = 'normal' }) => {
   const [hasError, setHasError] = useState(false);
 
   // Get initials for placeholder
@@ -15,9 +15,13 @@ const TeamLogo = ({ team, logoUrl }) => {
     return initials.substring(0, 2);
   };
 
+  // Determine CSS class based on size
+  const sizeClass = size === 'small' ? 'team-logo-small' : 'team-logo';
+  const placeholderClass = size === 'small' ? 'team-logo-placeholder-small' : 'team-logo-placeholder';
+
   if (!logoUrl || hasError) {
     return (
-      <div className="team-logo-placeholder">
+      <div className={placeholderClass}>
         {getInitials(team)}
       </div>
     );
@@ -27,7 +31,7 @@ const TeamLogo = ({ team, logoUrl }) => {
     <img 
       src={logoUrl} 
       alt={`${team} logo`} 
-      className="team-logo" 
+      className={sizeClass} 
       onError={() => setHasError(true)}
     />
   );

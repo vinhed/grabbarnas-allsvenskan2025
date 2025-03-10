@@ -1,8 +1,9 @@
 // src/components/EnhancedPredictionTracker.js
 import React, { useState, useEffect } from 'react';
 import { calculatePredictionScores, getLeaderboard } from '../api/allsvenskanApi';
+import TeamLogo from './TeamLogo';
 
-const EnhancedPredictionTracker = ({ currentStandings, bets, apiData }) => {
+const EnhancedPredictionTracker = ({ currentStandings, bets, supportedTeams, teamLogos, apiData }) => {
   const [scores, setScores] = useState([]);
   const [accuracyData, setAccuracyData] = useState([]);
   const [overallAccuracy, setOverallAccuracy] = useState({});
@@ -132,6 +133,22 @@ const EnhancedPredictionTracker = ({ currentStandings, bets, apiData }) => {
     });
   };
   
+  // Function to render participant name with supported team logo
+  const renderParticipantWithTeam = (username) => {
+    const supportedTeam = supportedTeams[username];
+    
+    return (
+      <div className="participant-with-team">
+        <span className="participant-name">{username}</span>
+        {supportedTeam && teamLogos[supportedTeam] && (
+          <div className="supported-team-icon">
+            <TeamLogo team={supportedTeam} logoUrl={teamLogos[supportedTeam]} size="small" />
+          </div>
+        )}
+      </div>
+    );
+  };
+  
   if (!bets || Object.keys(bets).length === 0 || !currentStandings || currentStandings.length === 0 || !hasMatchesPlayed()) {
     return null;
   }
@@ -202,7 +219,7 @@ const EnhancedPredictionTracker = ({ currentStandings, bets, apiData }) => {
                   return (
                     <tr key={entry.user} className={medalClass}>
                       <td>{position}</td>
-                      <td>{entry.user}</td>
+                      <td>{renderParticipantWithTeam(entry.user)}</td>
                       <td>{entry.score} pts</td>
                       <td>{entry.percent}%</td>
                       <td className="best-prediction">{bestTeam}{bestDetails}</td>
@@ -233,7 +250,7 @@ const EnhancedPredictionTracker = ({ currentStandings, bets, apiData }) => {
               <div className="accuracy-card best">
                 <div className="accuracy-card-title">Most Accurate</div>
                 <div className="accuracy-card-value">
-                  {overallAccuracy.highest ? overallAccuracy.highest.user : 'N/A'}
+                  {overallAccuracy.highest ? renderParticipantWithTeam(overallAccuracy.highest.user) : 'N/A'}
                 </div>
                 <div className="accuracy-card-stat">
                   {overallAccuracy.highest ? `${overallAccuracy.highest.accuracyPercentage}%` : ''}
@@ -243,7 +260,7 @@ const EnhancedPredictionTracker = ({ currentStandings, bets, apiData }) => {
               <div className="accuracy-card worst">
                 <div className="accuracy-card-title">Least Accurate</div>
                 <div className="accuracy-card-value">
-                  {overallAccuracy.lowest ? overallAccuracy.lowest.user : 'N/A'}
+                  {overallAccuracy.lowest ? renderParticipantWithTeam(overallAccuracy.lowest.user) : 'N/A'}
                 </div>
                 <div className="accuracy-card-stat">
                   {overallAccuracy.lowest ? `${overallAccuracy.lowest.accuracyPercentage}%` : ''}
@@ -269,7 +286,7 @@ const EnhancedPredictionTracker = ({ currentStandings, bets, apiData }) => {
                 {accuracyData.map((item, index) => (
                   <tr key={item.user} className={index < 3 ? `medal-${index + 1}` : ""}>
                     <td>{index + 1}</td>
-                    <td>{item.user}</td>
+                    <td>{renderParticipantWithTeam(item.user)}</td>
                     <td>{item.accuracyPercentage}%</td>
                     <td>{item.avgPositionDiff}</td>
                     <td className="best-prediction">
@@ -324,7 +341,7 @@ const EnhancedPredictionTracker = ({ currentStandings, bets, apiData }) => {
                   return (
                     <tr key={scoreEntry.user} className={medalClass}>
                       <td>{position}</td>
-                      <td>{scoreEntry.user}</td>
+                      <td>{renderParticipantWithTeam(scoreEntry.user)}</td>
                       <td>{scoreEntry.score} pts</td>
                       <td>{scoreEntry.percent}%</td>
                       <td>{accuracyEntry.accuracyPercentage}%</td>

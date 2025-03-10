@@ -52,8 +52,6 @@ body {
 
 /* App wrapper */
 .app {
-  display: flex;
-  flex-direction: column;
   min-height: 100vh;
 }
 
@@ -2039,5 +2037,173 @@ input:checked + .toggle-slider:before {
   .combined-table th:nth-child(6),
   .combined-table td:nth-child(6) {
     display: none;
+  }
+}
+
+/* Add these styles to your App.css file */
+
+/* Team logo sizes */
+.team-logo {
+  height: 24px;
+  width: 24px;
+  object-fit: contain;
+  margin-right: 8px;
+  vertical-align: middle;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 2px;
+}
+
+.team-logo-small {
+  height: 16px;
+  width: 16px;
+  object-fit: contain;
+  margin-left: 4px;
+  vertical-align: middle;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 1px;
+}
+
+/* Logo placeholder for different sizes */
+.team-logo-placeholder {
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  margin-right: 8px;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 10px;
+}
+
+.team-logo-placeholder-small {
+  display: inline-flex;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  margin-left: 4px;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 8px;
+}
+
+/* User header in predictions table */
+.user-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-name {
+  margin-right: 4px;
+}
+
+.supported-team {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Participant name with supported team */
+.participant-with-team {
+  display: flex;
+  align-items: center;
+}
+
+.participant-name {
+  margin-right: 5px;
+}
+
+.supported-team-icon {
+  display: inline-flex;
+  align-items: center;
+  animation: subtlePulse 2s infinite;
+}
+
+/* Highlight cells where a user predicted their supported team */
+.supported-team-cell {
+  position: relative;
+  background-color: rgba(255, 215, 0, 0.05) !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 215, 0, 0.3) !important;
+}
+
+.supported-team-cell::before {
+  content: '♥';
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  font-size: 8px;
+  color: rgba(255, 215, 0, 0.7);
+}
+
+/* Make sure supported team cells maintain their styling in special rows */
+tr.europaleague td.supported-team-cell,
+tr.conference-league td.supported-team-cell,
+tr.relegation-direct td.supported-team-cell,
+tr.relegation-playoff td.supported-team-cell {
+  background-color: rgba(255, 215, 0, 0.1) !important;
+}
+
+/* Fan loyalty indicator */
+.fan-loyalty {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: var(--bg-tertiary);
+  border-radius: 8px;
+}
+
+.fan-loyalty-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.fan-loyalty-icon {
+  margin-right: 8px;
+  font-size: 1.2rem;
+}
+
+.loyalty-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.loyalty-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: var(--bg-secondary);
+  border-radius: 8px;
+}
+
+.loyalty-fan-name {
+  margin-right: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .user-header {
+    flex-direction: column;
+  }
+  
+  .supported-team {
+    margin-top: 4px;
+  }
+  
+  .participant-with-team {
+    flex-direction: column;
+  }
+  
+  .supported-team-icon {
+    margin-top: 4px;
   }
 }

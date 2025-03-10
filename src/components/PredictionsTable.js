@@ -2,12 +2,28 @@
 import React, { useState } from 'react';
 import TeamLogo from './TeamLogo';
 
-const PredictionsTable = ({ bets, teamLogos }) => {
+const PredictionsTable = ({ bets, supportedTeams, teamLogos }) => {
   const [hoveredTeam, setHoveredTeam] = useState(null);
   
   // Find the maximum number of predictions by any user
   const maxBets = Math.max(...Object.values(bets).map(userBets => userBets.length));
   const userCount = Object.keys(bets).length;
+  
+  // Function to render user header with supported team logo
+  const renderUserHeader = (user) => {
+    const supportedTeam = supportedTeams[user];
+    
+    return (
+      <div className="user-header">
+        <span className="user-name">{user}</span>
+        {supportedTeam && (
+          <div className="supported-team">
+            <TeamLogo team={supportedTeam} logoUrl={teamLogos[supportedTeam]} size="small" />
+          </div>
+        )}
+      </div>
+    );
+  };
   
   return (
     <section className="section">
@@ -19,7 +35,9 @@ const PredictionsTable = ({ bets, teamLogos }) => {
             <tr>
               <th>#</th>
               {Object.keys(bets).map(user => (
-                <th key={user}>{user}</th>
+                <th key={user}>
+                  {renderUserHeader(user)}
+                </th>
               ))}
             </tr>
           </thead>
@@ -44,11 +62,17 @@ const PredictionsTable = ({ bets, teamLogos }) => {
                   {Object.entries(bets).map(([user, userBets]) => {
                     const team = i < userBets.length ? userBets[i] : "";
                     const isHighlighted = team === hoveredTeam && team !== "";
+                    // Add additional highlighting if team is user's supported team
+                    const isSupportedTeam = team === supportedTeams[user];
+                    const cellClassName = [
+                      isHighlighted ? "team-highlight" : "",
+                      isSupportedTeam ? "supported-team-cell" : ""
+                    ].filter(Boolean).join(" ");
                     
                     return (
                       <td 
                         key={`${user}-${i}`}
-                        className={isHighlighted ? "team-highlight" : ""}
+                        className={cellClassName}
                         onMouseEnter={() => team && setHoveredTeam(team)}
                         onMouseLeave={() => setHoveredTeam(null)}
                       >

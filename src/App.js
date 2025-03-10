@@ -10,6 +10,7 @@ import './App.css';
 
 function App() {
   const [bets, setBets] = useState({});
+  const [supportedTeams, setSupportedTeams] = useState({});
   const [currentStandings, setCurrentStandings] = useState([]);
   const [sortedConsensusRankings, setSortedConsensusRankings] = useState({});
   const [funStats, setFunStats] = useState({});
@@ -20,21 +21,30 @@ function App() {
 
   // FOR DEVELOPMENT: Mock data to use if fetch fails
   const mockBets = {
-    "Martin": [
-      "Malmö FF", "Djurgården", "Hammarby", "AIK", "BK Häcken", "IF Elfsborg",
-      "IFK Göteborg", "IFK Norrköping", "IK Sirius", "BP", "Mjällby AIF",
-      "IFK Värnamo", "Halmstads BK", "Degerfors IF", "GAIS", "Östers IF"
-    ],
-    "Johan": [
-      "Malmö FF", "AIK", "Djurgården", "Hammarby", "IF Elfsborg", "BK Häcken",
-      "IFK Göteborg", "IFK Norrköping", "Halmstads BK", "Mjällby AIF", "BP",
-      "IK Sirius", "IFK Värnamo", "GAIS", "Östers IF", "Degerfors IF"
-    ],
-    "Erik": [
-      "Malmö FF", "Hammarby", "Djurgården", "IF Elfsborg", "BK Häcken", "AIK",
-      "IFK Norrköping", "IFK Göteborg", "BP", "IK Sirius", "Mjällby AIF",
-      "Halmstads BK", "IFK Värnamo", "GAIS", "Östers IF", "Degerfors IF"
-    ]
+    "Martin": {
+      "predictions": [
+        "Malmö FF", "Djurgården", "Hammarby", "AIK", "BK Häcken", "IF Elfsborg",
+        "IFK Göteborg", "IFK Norrköping", "IK Sirius", "BP", "Mjällby AIF",
+        "IFK Värnamo", "Halmstads BK", "Degerfors IF", "GAIS", "Östers IF"
+      ],
+      "supportedTeam": "AIK"
+    },
+    "Johan": {
+      "predictions": [
+        "Malmö FF", "AIK", "Djurgården", "Hammarby", "IF Elfsborg", "BK Häcken",
+        "IFK Göteborg", "IFK Norrköping", "Halmstads BK", "Mjällby AIF", "BP",
+        "IK Sirius", "IFK Värnamo", "GAIS", "Östers IF", "Degerfors IF"
+      ],
+      "supportedTeam": "Djurgården"
+    },
+    "Erik": {
+      "predictions": [
+        "Malmö FF", "Hammarby", "Djurgården", "IF Elfsborg", "BK Häcken", "AIK",
+        "IFK Norrköping", "IFK Göteborg", "BP", "IK Sirius", "Mjällby AIF",
+        "Halmstads BK", "IFK Värnamo", "GAIS", "Östers IF", "Degerfors IF"
+      ],
+      "supportedTeam": "Djurgården"
+    }
   };
 
   useEffect(() => {
@@ -44,25 +54,45 @@ function App() {
         
         // Load bets data from file
         let betsData;
+        let predictionsOnly = {};
+        let supportedTeamsMap = {};
+        
         try {
           const betsResponse = await fetch(`${process.env.PUBLIC_URL}/data/bets.json`);
           if (!betsResponse.ok) {
             throw new Error(`Failed to fetch bets data: ${betsResponse.status}`);
           }
           betsData = await betsResponse.json();
+          
+          // Extract predictions and supported teams
+          for (const [user, userData] of Object.entries(betsData)) {
+            if (userData.predictions) {
+              predictionsOnly[user] = userData.predictions;
+              supportedTeamsMap[user] = userData.supportedTeam || null;
+            } else {
+              // Handle old format as fallback
+              predictionsOnly[user] = userData;
+            }
+          }
         } catch (fetchError) {
           console.warn("Could not load bets.json, using mock data:", fetchError);
-          betsData = mockBets;
+          
+          // Extract predictions and supported teams from mock data
+          for (const [user, userData] of Object.entries(mockBets)) {
+            predictionsOnly[user] = userData.predictions;
+            supportedTeamsMap[user] = userData.supportedTeam || null;
+          }
         }
         
-        setBets(betsData);
+        setBets(predictionsOnly);
+        setSupportedTeams(supportedTeamsMap);
         
         // Calculate consensus rankings
-        const consensusRankings = calculateConsensusRankings(betsData);
+        const consensusRankings = calculateConsensusRankings(predictionsOnly);
         setSortedConsensusRankings(consensusRankings);
         
         // Calculate fun statistics
-        const stats = calculateFunStats(betsData, consensusRankings);
+        const stats = calculateFunStats(predictionsOnly, consensusRankings);
         setFunStats(stats);
         
         // Fetch API data for team logos and standings
@@ -240,6 +270,7 @@ function App() {
               element={
                 <Dashboard 
                   bets={bets}
+                  supportedTeams={supportedTeams}
                   currentStandings={currentStandings}
                   sortedConsensusRankings={sortedConsensusRankings}
                   funStats={funStats}
