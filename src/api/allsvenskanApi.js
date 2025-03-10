@@ -3,37 +3,15 @@
 // Function to fetch full data from API
 export const fetchFullData = async () => {
   try {
-    // Try the real API first
-    const url = "https://allsvenskan.se/data-endpoint/statistics/standings/2025/total";
-    
-    const headers = {
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-      "Accept": "application/json",
-      "Accept-Language": "en-US,en;q=0.5",
-      "Cache-Control": "no-cache"
-    };
-
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000);
-
     try {
-      const response = await fetch(url, { 
-        headers,
-        signal: controller.signal
-      });
-      
-      clearTimeout(timeoutId);
-      
-      if (!response.ok) {
-        throw new Error(`Failed to fetch data: ${response.status} ${response.statusText}`);
+      const localResponse = await fetch(`${process.env.PUBLIC_URL}/data/standings.json`);
+      if (!localResponse.ok) {
+        throw new Error(`Failed to fetch bets data: ${localResponse.status}`);
       }
-      
-      return await response.json();
-    } catch (fetchError) {
-      console.warn('API request failed, falling back to local data', fetchError);
-      // Fall back to local mock file
-      const localResponse = await fetch('/data/standings.json');
       return await localResponse.json();
+    } catch (fetchError) {
+      console.warn("Could not load bets.json, using mock data:", fetchError);
+      return {};
     }
   } catch (error) {
     console.error("Error fetching Allsvenskan API data:", error);

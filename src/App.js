@@ -45,7 +45,7 @@ function App() {
         // Load bets data from file
         let betsData;
         try {
-          const betsResponse = await fetch('/data/bets.json');
+          const betsResponse = await fetch(`${process.env.PUBLIC_URL}/data/bets.json`);
           if (!betsResponse.ok) {
             throw new Error(`Failed to fetch bets data: ${betsResponse.status}`);
           }
@@ -226,8 +226,11 @@ function App() {
     return <div className="error">{error}</div>;
   }
 
+  // Use the base path from PUBLIC_URL for GitHub Pages
+  const basePath = process.env.PUBLIC_URL || '';
+
   return (
-    <Router>
+    <Router basename={basePath}>
       <div className="app">
         <Header />
         <div className="container">
