@@ -146,27 +146,6 @@
     ],
     "supportedTeam": "Djurgården"
   },
-  "William": {
-    "predictions": [
-      "AIK",
-      "Malmö FF",
-      "Djurgården",
-      "BK Häcken",
-      "Hammarby",
-      "Elfsborg",
-      "IFK Norrköping",
-      "IFK Göteborg",
-      "IK Sirius",
-      "GAIS",
-      "Mjällby",
-      "Degerfors IF",
-      "IFK Värnamo",
-      "BP",
-      "Halmstads BK",
-      "Östers IF"
-    ],
-    "supportedTeam": "AIK"
-  },
   "Sebastian": {
     "predictions": [
       "Hammarby",
@@ -187,5 +166,26 @@
       "Halmstads BK"
     ],
     "supportedTeam": "Hammarby"
+  },
+  "William": {
+    "predictions": [
+      "AIK",
+      "Malmö FF",
+      "Djurgården",
+      "BK Häcken",
+      "Hammarby",
+      "Elfsborg",
+      "IFK Norrköping",
+      "IFK Göteborg",
+      "IK Sirius",
+      "GAIS",
+      "Mjällby",
+      "Degerfors IF",
+      "IFK Värnamo",
+      "BP",
+      "Halmstads BK",
+      "Östers IF"
+    ],
+    "supportedTeam": "AIK"
   }
 }
