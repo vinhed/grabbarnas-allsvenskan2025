@@ -187,5 +187,26 @@
       "Östers IF"
     ],
     "supportedTeam": "AIK"
+  },
+  "Johannes": {
+    "predictions": [
+      "Malmö FF",
+      "Hammarby",
+      "AIK",
+      "BK Häcken",
+      "Elfsborg",
+      "Djurgården",
+      "Mjällby",
+      "IFK Göteborg",
+      "GAIS",
+      "IK Sirius",
+      "BP",
+      "Halmstads BK",
+      "IFK Norrköping",
+      "IFK Värnamo",
+      "Degerfors IF",
+      "Östers IF"
+    ],
+    "supportedTeam": "Hammarby"
   }
 }
