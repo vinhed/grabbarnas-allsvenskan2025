@@ -552,13 +552,6 @@ tr.relegation-playoff td.team-highlight {
   background-color: rgba(255, 215, 0, 0.4) !important;
 }
 
-/* Also highlight the same team in the standings table */
-#standings-table td.team-highlight {
-  background-color: rgba(255, 215, 0, 0.3) !important;
-  box-shadow: inset 0 0 0 2px rgba(255, 215, 0, 0.8) !important;
-  color: white !important;
-}
-
 /* Add a subtle transition for smoother highlighting */
 #predictions-table td,
 #standings-table td {
@@ -573,12 +566,7 @@ tr.relegation-playoff td.team-highlight {
 .team-highlight .team-name-with-logo::after {
   content: '';
   position: absolute;
-  top: -2px;
-  left: -5px;
-  right: -5px;
-  bottom: -2px;
   border-radius: 4px;
-  border: 2px solid rgba(255, 215, 0, 0.8);
   pointer-events: none;
 }
 

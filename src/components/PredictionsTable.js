@@ -12,7 +12,6 @@ const PredictionsTable = ({ bets, teamLogos }) => {
   return (
     <section className="section">
       <h2 className="section-title"><span className="icon">🔮</span> Individual Predictions</h2>
-      <p className="section-description">Scroll horizontally to see all predictions.</p>
       
       <div className="table-wrapper">
         <table id="predictions-table">

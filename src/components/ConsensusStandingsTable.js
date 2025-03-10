@@ -123,10 +123,6 @@ const ConsensusStandingsTable = ({ consensusRankings, bets, teamLogos }) => {
                 rowClass = "relegation-playoff";
               }
               
-              // Check if this team is being hovered over
-              if (hoveredTeam === team) {
-                rowClass += " team-highlight";
-              }
               
               return (
                 <tr 
