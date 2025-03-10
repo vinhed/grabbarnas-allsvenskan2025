@@ -461,7 +461,7 @@ const FunStats = ({ stats, supportedTeams, teamLogos }) => {
         title: "Hometown Hero",
         value: displayMultiplePeople(stats.mostLoyalFan),
         rawValue: stats.mostLoyalFan,
-        description: `Predicted their supported team the highest (${stats.loyaltyPosition})`,
+        description: `Predicted their supported team the highest (${stats.loyaltyPosition}) and rivals lowest`,
         icon: "💪",
         color: "#4361ee"
       },
