@@ -22,7 +22,6 @@ const Dashboard = ({
       {/* Stats Cards */}
       <StatsCards bets={bets} consensusRankings={sortedConsensusRankings} />
       
-      {/* Enhanced Prediction Tracker (combines LiveStandingsTable and PredictionAccuracyTracker) */}
       <EnhancedPredictionTracker 
         currentStandings={currentStandings} 
         bets={bets} 
