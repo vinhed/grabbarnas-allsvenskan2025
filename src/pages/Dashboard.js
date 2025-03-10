@@ -1,10 +1,10 @@
 // src/pages/Dashboard.js
-import React from 'react';
+import React, { useState } from 'react';
 import StatsCards from '../components/StatsCard';
 import FunStats from '../components/FunStats';
 import ConsensusStandingsTable from '../components/ConsensusStandingsTable';
 import PredictionsTable from '../components/PredictionsTable';
-import LiveStandingsTable from '../components/LiveStandingsTable';
+import EnhancedPredictionTracker from '../components/EnhancedPredictionTracker'; 
 
 const Dashboard = ({ 
   bets, 
@@ -14,20 +14,23 @@ const Dashboard = ({
   teamLogos,
   apiData
 }) => {
+  // State for view options
+  const [showAdvancedStats, setShowAdvancedStats] = useState(false);
+  
   return (
     <div className="dashboard">
       {/* Stats Cards */}
       <StatsCards bets={bets} consensusRankings={sortedConsensusRankings} />
       
-      {/* Fun Statistics */}
-      <FunStats stats={funStats} />
-
-      {/* Live Standings Table (shown only if data available) */}
-      <LiveStandingsTable 
+      {/* Enhanced Prediction Tracker (combines LiveStandingsTable and PredictionAccuracyTracker) */}
+      <EnhancedPredictionTracker 
         currentStandings={currentStandings} 
         bets={bets} 
         apiData={apiData}
       />
+      
+      {/* Fun Statistics */}
+      <FunStats stats={funStats} />
       
       {/* Enhanced Consensus Standings */}
       <ConsensusStandingsTable 
