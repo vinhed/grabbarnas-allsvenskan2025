@@ -3,32 +3,28 @@ import TeamLogo from './TeamLogo';
 
 const FunStats = ({ stats, supportedTeams, teamLogos }) => {
   const [activeCategory, setActiveCategory] = useState('favorites');
-  const [teamColors, setTeamColors] = useState({});
   
-  useEffect(() => {
-    // Initialize Allsvenskan team colors with proper contrast against dark backgrounds
-    // Using bright/visible versions of team colors
-    setTeamColors({
-      'AIK': { primary: '#FFD700', secondary: '#FFFFFF' },           // Gold instead of black
-      'Djurgården': { primary: '#4B85D6', secondary: '#C60C30' },    // Brighter blue
-      'Hammarby': { primary: '#1FD672', secondary: '#FFFFFF' },      // Bright green
-      'Malmö FF': { primary: '#3BBDFF', secondary: '#FFFFFF' },      // Bright blue
-      'IFK Göteborg': { primary: '#3E9AFF', secondary: '#FFFFFF' },  // Bright blue
-      'BK Häcken': { primary: '#FFEC00', secondary: '#D9D9D9' },     // Yellow
-      'IF Elfsborg': { primary: '#FFEC00', secondary: '#D9D9D9' },   // Yellow
-      'IFK Norrköping': { primary: '#3BBDFF', secondary: '#FFFFFF' },// Bright blue
-      'IFK Värnamo': { primary: '#4C9EFF', secondary: '#FFFFFF' },   // Bright blue
-      'IK Sirius': { primary: '#4C9EFF', secondary: '#FFFFFF' },     // Bright blue
-      'Mjällby AIF': { primary: '#FFEC00', secondary: '#D9D9D9' },   // Yellow
-      'BP': { primary: '#FF5252', secondary: '#FFFFFF' },            // Bright red
-      'Degerfors IF': { primary: '#FF5252', secondary: '#FFFFFF' },  // Bright red
-      'Halmstads BK': { primary: '#4C9EFF', secondary: '#FFFFFF' },  // Bright blue
-      'GAIS': { primary: '#20B473', secondary: '#FFFFFF' },          // Bright green
-      'Östers IF': { primary: '#FF5252', secondary: '#FFFFFF' },     // Bright red
-      // Fallback for teams not explicitly defined
-      'default': { primary: '#3a86ff', secondary: '#f0f0f0' }
-    });
-  }, []);
+  // Initialize team colors directly to avoid async issues
+  const [teamColors] = useState({
+    'AIK': { primary: '#FFD700', secondary: '#FFFFFF' },           // Gold instead of black
+    'Djurgården': { primary: '#4B85D6', secondary: '#C60C30' },    // Brighter blue
+    'Hammarby': { primary: '#1FD672', secondary: '#FFFFFF' },      // Bright green
+    'Malmö FF': { primary: '#3BBDFF', secondary: '#FFFFFF' },      // Bright blue
+    'IFK Göteborg': { primary: '#3E9AFF', secondary: '#FFFFFF' },  // Bright blue
+    'BK Häcken': { primary: '#FFEC00', secondary: '#D9D9D9' },     // Yellow
+    'IF Elfsborg': { primary: '#FFEC00', secondary: '#D9D9D9' },   // Yellow
+    'IFK Norrköping': { primary: '#3BBDFF', secondary: '#FFFFFF' },// Bright blue
+    'IFK Värnamo': { primary: '#4C9EFF', secondary: '#FFFFFF' },   // Bright blue
+    'IK Sirius': { primary: '#4C9EFF', secondary: '#FFFFFF' },     // Bright blue
+    'Mjällby AIF': { primary: '#FFEC00', secondary: '#D9D9D9' },   // Yellow
+    'BP': { primary: '#FF5252', secondary: '#FFFFFF' },            // Bright red
+    'Degerfors IF': { primary: '#FF5252', secondary: '#FFFFFF' },  // Bright red
+    'Halmstads BK': { primary: '#4C9EFF', secondary: '#FFFFFF' },  // Bright blue
+    'GAIS': { primary: '#20B473', secondary: '#FFFFFF' },          // Bright green
+    'Östers IF': { primary: '#FF5252', secondary: '#FFFFFF' },     // Bright red
+    // Fallback for teams not explicitly defined
+    'default': { primary: '#3a86ff', secondary: '#f0f0f0' }
+  });
 
   // Helper function to get team color or fallback to default
   const getTeamColor = (teamName, isPrimary = true) => {
@@ -53,25 +49,27 @@ const FunStats = ({ stats, supportedTeams, teamLogos }) => {
     if (!teamName) return isPrimary ? '#3a86ff' : '#f0f0f0';
     
     // First try exact match
-    if (teamColors[teamName]) {
+    if (teamColors && teamColors[teamName]) {
       return isPrimary ? teamColors[teamName].primary : teamColors[teamName].secondary;
     }
     
     // Then try partial match
-    const team = Object.keys(teamColors).find(
-      key => {
-        if (!key || key === 'default') return false;
-        return teamName.toLowerCase().includes(key.toLowerCase()) || 
-               key.toLowerCase().includes(teamName.toLowerCase());
+    if (teamColors) {
+      const team = Object.keys(teamColors).find(
+        key => {
+          if (!key || key === 'default') return false;
+          return teamName.toLowerCase().includes(key.toLowerCase()) || 
+                key.toLowerCase().includes(teamName.toLowerCase());
+        }
+      );
+      
+      if (team && teamColors[team]) {
+        return isPrimary ? teamColors[team].primary : teamColors[team].secondary;
       }
-    );
-    
-    if (team && teamColors[team]) {
-      return isPrimary ? teamColors[team].primary : teamColors[team].secondary;
     }
     
     // Return default if no match found
-    return isPrimary ? teamColors.default.primary : teamColors.default.secondary;
+    return isPrimary ? '#3a86ff' : '#f0f0f0';
   };
   
   if (!stats || Object.keys(stats).length === 0) {
@@ -135,10 +133,9 @@ const FunStats = ({ stats, supportedTeams, teamLogos }) => {
                       borderRadius: "4px"
                     }}
                   >
-                    <TeamLogo team={teams[0]} logoUrl={teamLogos[teams[0]]} />
+                    <TeamLogo team={teams[0]} logoUrl={teamLogos[teams[0]]} size="normal" />
                     <div className="rivalry-vs">vs</div>
-                    <TeamLogo team={teams[1]} logoUrl={teamLogos[teams[1]]} />
-                    
+                    <TeamLogo team={teams[1]} logoUrl={teamLogos[teams[1]]} size="normal" />
                   </div>
                 </React.Fragment>
               );
@@ -173,16 +170,14 @@ const FunStats = ({ stats, supportedTeams, teamLogos }) => {
                 alignItems: "center"
               }}
             >
-              <div style={{ display: "flex", alignItems: "center" }}>
+              <div className="person-with-team" style={{ display: "flex", alignItems: "center" }}>
                 {team && teamLogos[team] && (
-                  <div style={{ marginRight: "10px" }}>
-                    <div 
-                    >
-                      <TeamLogo team={team} logoUrl={teamLogos[team]} size="normal" />
-                    </div>
-                  </div>
+                  <TeamLogo team={team} logoUrl={teamLogos[team]} size="normal" />
                 )}
-                <span style={{ color: teamColor, fontWeight: "600" }}>{trimmedName}</span>
+                <span style={{ 
+                  color: teamColor, 
+                  fontWeight: "600" 
+                }}>{trimmedName}</span>
               </div>
             </div>
           );
@@ -223,6 +218,97 @@ const FunStats = ({ stats, supportedTeams, teamLogos }) => {
     };
   };
   
+  // Create a mapping between team names and their normalized versions
+  const normalizeTeamName = (teamName) => {
+    if (!teamName) return '';
+    
+    // Common mappings for Allsvenskan teams
+    const mappings = {
+      'AIK': 'AIK',
+      'Djurgården': 'Djurgårdens IF',
+      'Djurgårdens': 'Djurgårdens IF',
+      'DIF': 'Djurgårdens IF',
+      'Hammarby': 'Hammarby IF',
+      'Bajen': 'Hammarby IF',
+      'Malmö': 'Malmö FF',
+      'Malmö FF': 'Malmö FF',
+      'MFF': 'Malmö FF',
+      'IFK Göteborg': 'IFK Göteborg',
+      'Göteborg': 'IFK Göteborg',
+      'Blåvitt': 'IFK Göteborg',
+      'BK Häcken': 'BK Häcken',
+      'Häcken': 'BK Häcken',
+      'Elfsborg': 'IF Elfsborg',
+      'IF Elfsborg': 'IF Elfsborg',
+      'IFK Norrköping': 'IFK Norrköping',
+      'Norrköping': 'IFK Norrköping',
+      'Peking': 'IFK Norrköping',
+      'IFK Värnamo': 'IFK Värnamo',
+      'Värnamo': 'IFK Värnamo',
+      'IK Sirius': 'IK Sirius',
+      'Sirius': 'IK Sirius',
+      'Mjällby AIF': 'Mjällby AIF',
+      'Mjällby': 'Mjällby AIF',
+      'BP': 'IF Brommapojkarna',
+      'Brommapojkarna': 'IF Brommapojkarna',
+      'Degerfors IF': 'Degerfors IF',
+      'Degerfors': 'Degerfors IF',
+      'Halmstads BK': 'Halmstads BK',
+      'Halmstad': 'Halmstads BK',
+      'HBK': 'Halmstads BK',
+      'GAIS': 'GAIS',
+      'Gais': 'GAIS',
+      'Östers IF': 'Östers IF',
+      'Öster': 'Östers IF'
+    };
+    
+    // Try direct lookup first
+    if (mappings[teamName]) {
+      return mappings[teamName];
+    }
+    
+    // Try case-insensitive match
+    const lowerTeamName = teamName.toLowerCase();
+    for (const [key, value] of Object.entries(mappings)) {
+      if (key.toLowerCase() === lowerTeamName) {
+        return value;
+      }
+    }
+    
+    // Return original if no match found
+    return teamName;
+  };
+  
+  // Helper to safely get team logo URL with fallback
+  const getTeamLogo = (team) => {
+    if (!team || !teamLogos) return null;
+    
+    // Try direct lookup first
+    if (teamLogos[team]) {
+      return teamLogos[team];
+    }
+    
+    // Try with normalized team name
+    const normalizedTeam = normalizeTeamName(team);
+    if (teamLogos[normalizedTeam]) {
+      return teamLogos[normalizedTeam];
+    }
+    
+    // Try partial match
+    for (const [logoTeam, logoUrl] of Object.entries(teamLogos)) {
+      // Skip empty entries
+      if (!logoTeam) continue;
+      
+      // Check if either name contains the other
+      if (logoTeam.toLowerCase().includes(team.toLowerCase()) || 
+          team.toLowerCase().includes(logoTeam.toLowerCase())) {
+        return logoUrl;
+      }
+    }
+    
+    return null;
+  };
+  
   // Helper to display multiple teams with each team's appropriate colors
   const displayMultipleTeams = (teamsString) => {
     if (!teamsString) return null;
@@ -234,6 +320,7 @@ const FunStats = ({ stats, supportedTeams, teamLogos }) => {
         {teams.map((team, index) => {
           const trimmedTeam = team.trim();
           const teamColor = getTeamColor(trimmedTeam);
+          const logo = getTeamLogo(trimmedTeam);
           
           return (
             <div 
@@ -245,7 +332,7 @@ const FunStats = ({ stats, supportedTeams, teamLogos }) => {
               }}
             >
               <div className="team-with-logo">
-                <TeamLogo team={trimmedTeam} logoUrl={teamLogos[trimmedTeam]} />
+                <TeamLogo team={trimmedTeam} logoUrl={logo} size="normal" />
                 <span style={{ color: teamColor }}>{trimmedTeam}</span>
               </div>
             </div>
@@ -398,7 +485,7 @@ const FunStats = ({ stats, supportedTeams, teamLogos }) => {
         color: "var(--accent)"
       },
       stats.rivalryStats && {
-        title: "Position Swaps",
+        title: "Fiercest Rivalry",
         value: displayRivalry(stats.rivalryStats.teams, stats.rivalryStats.description),
         rawValue: stats.rivalryStats.teams,
         description: "Teams with most position switches",
