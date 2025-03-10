@@ -5,10 +5,6 @@ import FunStats from '../components/FunStats';
 import ConsensusStandingsTable from '../components/ConsensusStandingsTable';
 import PredictionsTable from '../components/PredictionsTable';
 import LiveStandingsTable from '../components/LiveStandingsTable';
-import PredictionAccuracyTracker from '../components/PredictionAccuracyTracker';
-import SeasonProgressTracker from '../components/SeasonProgressTracker';
-import TeamMomentumTracker from '../components/TeamMomentumTracker';
-import UserHeadToHead from '../components/UserHeadToHead';
 
 const Dashboard = ({ 
   bets, 
