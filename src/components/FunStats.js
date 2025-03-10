@@ -5,7 +5,7 @@ const FunStats = ({ stats }) => {
   if (!stats || Object.keys(stats).length === 0) {
     return (
       <section className="compact-fun-stats-section">
-        <h2 className="section-title"><span className="icon">🎮</span> Statistics</h2>
+        <h2 className="section-title statistics-title"><span className="icon">🎮</span> Statistics</h2>
         <p>No statistics available yet.</p>
       </section>
     );
@@ -71,7 +71,7 @@ const FunStats = ({ stats }) => {
 
   return (
     <section className="compact-fun-stats-section">
-      <h2 className="section-title"><span className="icon">🎮</span> Statistics</h2>
+      <h2 className="section-title statistics-title"><span className="icon">🎮</span> Statistics</h2>
       
       <div className="fun-stats-grid">
         {statCards.map((stat, index) => (

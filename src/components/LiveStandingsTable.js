@@ -35,7 +35,6 @@ const LiveStandingsTable = ({ currentStandings, bets, apiData }) => {
   return (
     <section className="section" id="current-leaderboard-section">
       <h2 className="section-title"><span className="icon">🏆</span> Current Prediction Scores</h2>
-      <p className="section-description">Based on current standings. Higher scores are better!</p>
       
       <div className="table-wrapper">
         <table id="current-leaderboard-table">

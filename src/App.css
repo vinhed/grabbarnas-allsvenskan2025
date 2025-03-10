@@ -1019,10 +1019,6 @@ tr.relegation-playoff td.team-highlight {
   100% { box-shadow: 0 0 0 0 rgba(58, 134, 255, 0); }
 }
 
-.medal-1 td {
-  animation: subtlePulse 2s infinite;
-}
-
 /* Improved table scrollbar */
 .table-wrapper::-webkit-scrollbar {
   height: 8px;
@@ -1215,7 +1211,7 @@ input:checked + .toggle-slider:before {
 /* Add gradient backgrounds to section headers */
 .section-title {
   background: linear-gradient(90deg, var(--bg-secondary), var(--bg-tertiary));
-  margin: -30px -20px 20px -20px;
+  margin: -30px -30px 20px -30px;
   padding: 20px 30px;
   border-radius: 12px 12px 0 0;
   border-bottom: 1px solid var(--border-color);
@@ -1246,10 +1242,6 @@ input:checked + .toggle-slider:before {
   0% { box-shadow: 0 0 0 0 rgba(58, 134, 255, 0.4); }
   70% { box-shadow: 0 0 0 6px rgba(58, 134, 255, 0); }
   100% { box-shadow: 0 0 0 0 rgba(58, 134, 255, 0); }
-}
-
-.medal-1 td {
-  animation: subtlePulse 2s infinite;
 }
 
 /* Improved table scrollbar */
@@ -1962,4 +1954,8 @@ input:checked + .toggle-slider:before {
   .similarity-details {
     width: 100%;
   }
+}
+
+.statistics-title {
+  margin: -30px -20px 20px -20px;
 }
