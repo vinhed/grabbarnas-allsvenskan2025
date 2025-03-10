@@ -485,7 +485,7 @@ const FunStats = ({ stats, supportedTeams, teamLogos }) => {
         color: "var(--accent)"
       },
       stats.rivalryStats && {
-        title: "Fiercest Rivalry",
+        title: "Position Swaps",
         value: displayRivalry(stats.rivalryStats.teams, stats.rivalryStats.description),
         rawValue: stats.rivalryStats.teams,
         description: "Teams with most position switches",

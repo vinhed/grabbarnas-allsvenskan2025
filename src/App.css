@@ -1005,13 +1005,6 @@ tr.relegation-playoff td.team-highlight {
   transform: translateX(3px);
 }
 
-/* Add subtle pulse animation to top performers */
-@keyframes subtlePulse {
-  0% { box-shadow: 0 0 0 0 rgba(58, 134, 255, 0.4); }
-  70% { box-shadow: 0 0 0 6px rgba(58, 134, 255, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(58, 134, 255, 0); }
-}
-
 /* Improved table scrollbar */
 .table-wrapper::-webkit-scrollbar {
   height: 8px;
@@ -1223,13 +1216,6 @@ input:checked + .toggle-slider:before {
 
 .team-name-with-logo:hover {
   transform: translateX(3px);
-}
-
-/* Add subtle pulse animation to top performers */
-@keyframes subtlePulse {
-  0% { box-shadow: 0 0 0 0 rgba(58, 134, 255, 0.4); }
-  70% { box-shadow: 0 0 0 6px rgba(58, 134, 255, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(58, 134, 255, 0); }
 }
 
 /* Improved table scrollbar */
@@ -2123,7 +2109,6 @@ input:checked + .toggle-slider:before {
 .supported-team-icon {
   display: inline-flex;
   align-items: center;
-  animation: subtlePulse 2s infinite;
 }
 
 /* Highlight cells where a user predicted their supported team */
@@ -2565,15 +2550,6 @@ tr.relegation-playoff td.supported-team-cell {
 /* Adjust the value display to work better with vertical lists */
 .fun-stat-value {
   margin-bottom: 10px;
-}
-
-/* Add a subtle marker for vertical lists */
-.vertical-team-item::before,
-.vertical-person-item::before {
-  content: '•';
-  margin-right: 6px;
-  color: var(--accent);
-  font-weight: bold;
 }
 
 /* Responsive adjustments */
