@@ -58,7 +58,7 @@ function App() {
         let supportedTeamsMap = {};
         
         try {
-          const betsResponse = await fetch(`${process.env.PUBLIC_URL}/data/bets.json`);
+          const betsResponse = await fetch(`https://raw.githubusercontent.com/vinhed/grabbarnas-allsvenskan2025/refs/heads/main/public/data/bets.json`);
           if (!betsResponse.ok) {
             throw new Error(`Failed to fetch bets data: ${betsResponse.status}`);
           }

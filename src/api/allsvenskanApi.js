@@ -4,7 +4,7 @@
 export const fetchFullData = async () => {
   try {
     try {
-      const localResponse = await fetch(`${process.env.PUBLIC_URL}/data/standings.json`);
+      const localResponse = await fetch(`https://raw.githubusercontent.com/vinhed/grabbarnas-allsvenskan2025/refs/heads/main/public/data/standings.json`);
       if (!localResponse.ok) {
         throw new Error(`Failed to fetch bets data: ${localResponse.status}`);
       }
