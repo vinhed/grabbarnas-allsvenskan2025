@@ -66,18 +66,6 @@ const FunStats = ({ stats }) => {
       value: stats.prophet,
       description: "Predictions most aligned with the group consensus",
       icon: "🔮"
-    },
-    stats.biggestDarkHorse && {
-      title: "The Dark Horse",
-      value: stats.biggestDarkHorse,
-      description: `Predicted better than consensus by ${stats.darkHorseValue} positions`,
-      icon: "🐴"
-    },
-    stats.mostUnderrated && {
-      title: "Underrated Team",
-      value: stats.mostUnderrated,
-      description: `Consensus ranks higher than predictions by ${stats.underratedValue} positions`,
-      icon: "💎"
     }
   ].filter(Boolean); // Remove any undefined entries
 

@@ -970,3 +970,996 @@ tr.relegation-playoff td.team-highlight {
     margin-right: 10px;
   }
 }
+
+/* Enhanced UI Elements - Add these to your App.css */
+
+/* Add subtle animations to stats cards */
+.compact-fun-stat-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.compact-fun-stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Add gradient backgrounds to section headers */
+.section-title {
+  background: linear-gradient(90deg, var(--bg-secondary), var(--bg-tertiary));
+  margin: -30px -30px 20px -30px;
+  padding: 20px 30px;
+  border-radius: 12px 12px 0 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Modern card design with subtle hover effects */
+.section {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--border-color);
+}
+
+.section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Team name hover effect */
+.team-name-with-logo {
+  transition: transform 0.2s ease;
+}
+
+.team-name-with-logo:hover {
+  transform: translateX(3px);
+}
+
+/* Add subtle pulse animation to top performers */
+@keyframes subtlePulse {
+  0% { box-shadow: 0 0 0 0 rgba(58, 134, 255, 0.4); }
+  70% { box-shadow: 0 0 0 6px rgba(58, 134, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(58, 134, 255, 0); }
+}
+
+.medal-1 td {
+  animation: subtlePulse 2s infinite;
+}
+
+/* Improved table scrollbar */
+.table-wrapper::-webkit-scrollbar {
+  height: 8px;
+  background-color: var(--bg-primary);
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background-color: var(--accent);
+  border-radius: 4px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background-color: var(--bg-secondary);
+  border-radius: 4px;
+}
+
+/* Enhanced header with gradient */
+header {
+  background: linear-gradient(135deg, #121212 0%, #1e1e1e 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, rgba(58, 134, 255, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+  pointer-events: none;
+}
+
+/* Enhanced team highlight effect */
+.team-highlight {
+  position: relative;
+  overflow: hidden;
+}
+
+.team-highlight::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0) 70%);
+  pointer-events: none;
+}
+
+/* Add tooltip styles for additional information */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: help;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  width: 200px;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1000;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-color);
+  font-size: 0.9rem;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--bg-tertiary);
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: var(--text-primary);
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+  background-color: var(--accent);
+}
+
+input:checked + .toggle-slider:before {
+  transform: translateX(26px);
+}
+
+/* Progress indicators for the season */
+.season-progress {
+  width: 100%;
+  height: 10px;
+  background-color: var(--bg-tertiary);
+  border-radius: 5px;
+  margin: 15px 0;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 100%);
+  border-radius: 5px;
+  transition: width 0.5s ease;
+}
+
+/* Enhanced team logo styling */
+.team-logo {
+  transition: transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.team-logo:hover {
+  transform: scale(1.2);
+}
+
+/* Enhanced mobile responsiveness */
+@media (max-width: 768px) {
+  .section {
+    padding: 20px 15px;
+  }
+  
+  .section-title {
+    margin: -20px -15px 15px -15px;
+    padding: 15px 20px;
+    font-size: 1.3rem;
+  }
+  
+  .compact-stats-container {
+    flex-direction: column;
+  }
+  
+  .compact-stat-item {
+    padding: 10px;
+    max-width: 100%;
+  }
+}
+
+/* Enhanced UI Elements - Add these to your App.css */
+
+/* Add subtle animations to stats cards */
+.compact-fun-stat-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.compact-fun-stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Add gradient backgrounds to section headers */
+.section-title {
+  background: linear-gradient(90deg, var(--bg-secondary), var(--bg-tertiary));
+  margin: -30px -20px 20px -20px;
+  padding: 20px 30px;
+  border-radius: 12px 12px 0 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Modern card design with subtle hover effects */
+.section {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--border-color);
+}
+
+.section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Team name hover effect */
+.team-name-with-logo {
+  transition: transform 0.2s ease;
+}
+
+.team-name-with-logo:hover {
+  transform: translateX(3px);
+}
+
+/* Add subtle pulse animation to top performers */
+@keyframes subtlePulse {
+  0% { box-shadow: 0 0 0 0 rgba(58, 134, 255, 0.4); }
+  70% { box-shadow: 0 0 0 6px rgba(58, 134, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(58, 134, 255, 0); }
+}
+
+.medal-1 td {
+  animation: subtlePulse 2s infinite;
+}
+
+/* Improved table scrollbar */
+.table-wrapper::-webkit-scrollbar {
+  height: 8px;
+  background-color: var(--bg-primary);
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background-color: var(--accent);
+  border-radius: 4px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background-color: var(--bg-secondary);
+  border-radius: 4px;
+}
+
+/* Enhanced header with gradient */
+header {
+  background: linear-gradient(135deg, #121212 0%, #1e1e1e 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, rgba(58, 134, 255, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+  pointer-events: none;
+}
+
+/* Enhanced team highlight effect */
+.team-highlight {
+  position: relative;
+  overflow: hidden;
+}
+
+.team-highlight::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0) 70%);
+  pointer-events: none;
+}
+
+/* Add tooltip styles for additional information */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: help;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  width: 200px;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1000;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-color);
+  font-size: 0.9rem;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Modern toggle switch for theme (if you want to add dark/light mode) */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--bg-tertiary);
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: var(--text-primary);
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+  background-color: var(--accent);
+}
+
+input:checked + .toggle-slider:before {
+  transform: translateX(26px);
+}
+
+/* Progress indicators for the season */
+.season-progress {
+  width: 100%;
+  height: 10px;
+  background-color: var(--bg-tertiary);
+  border-radius: 5px;
+  margin: 15px 0;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 100%);
+  border-radius: 5px;
+  transition: width 0.5s ease;
+}
+
+/* Enhanced team logo styling */
+.team-logo {
+  transition: transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.team-logo:hover {
+  transform: scale(1.2);
+}
+
+/* Enhanced mobile responsiveness */
+@media (max-width: 768px) {
+  .section {
+    padding: 20px 15px;
+  }
+  
+  .section-title {
+    margin: -20px -15px 15px -15px;
+    padding: 15px 20px;
+    font-size: 1.3rem;
+  }
+  
+  .compact-stats-container {
+    flex-direction: column;
+  }
+  
+  .compact-stat-item {
+    padding: 10px;
+    max-width: 100%;
+  }
+}
+
+/* CSS for new components - Add these to your App.css */
+
+/* PredictionAccuracyTracker styles */
+.accuracy-overview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.accuracy-meter {
+  background-color: var(--bg-tertiary);
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.accuracy-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.accuracy-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 15px;
+}
+
+.progress-container {
+  width: 100%;
+  height: 12px;
+  background-color: var(--bg-secondary);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 100%);
+  border-radius: 6px;
+}
+
+.accuracy-highlights {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.accuracy-card {
+  background-color: var(--bg-tertiary);
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.accuracy-card.best {
+  border-left: 4px solid var(--accent);
+}
+
+.accuracy-card.worst {
+  border-left: 4px solid #f72585;
+}
+
+.accuracy-card-title {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.accuracy-card-value {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.accuracy-card-stat {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.accuracy-card.best .accuracy-card-stat {
+  color: var(--accent);
+}
+
+.accuracy-card.worst .accuracy-card-stat {
+  color: #f72585;
+}
+
+.accuracy-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Season Progress Tracker styles */
+.season-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.season-progress-container {
+  background-color: var(--bg-tertiary);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.season-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.season-stage {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.progress-percentage {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.season-progress {
+  width: 100%;
+  height: 12px;
+  background-color: var(--bg-secondary);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.season-details-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.season-detail-item {
+  text-align: center;
+  padding: 15px;
+  background-color: var(--bg-secondary);
+  border-radius: 8px;
+}
+
+.detail-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.detail-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Team Momentum Tracker styles */
+.momentum-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.momentum-column {
+  background-color: var(--bg-tertiary);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.momentum-column-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.momentum-icon {
+  font-size: 1.3rem;
+  margin-right: 10px;
+}
+
+.momentum-icon.positive {
+  color: #06d6a0;
+}
+
+.momentum-icon.negative {
+  color: #ef476f;
+}
+
+.momentum-icon.neutral {
+  color: var(--text-secondary);
+}
+
+.momentum-teams-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.team-momentum-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: var(--bg-secondary);
+  transition: transform 0.2s ease;
+}
+
+.team-momentum-item:hover {
+  transform: translateX(5px);
+}
+
+.team-momentum-position {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+  min-width: 80px;
+}
+
+.current-position {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.direction-arrow {
+  margin: 0 5px;
+  font-size: 1.2rem;
+}
+
+.predicted-position {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+.team-details {
+  flex: 1;
+}
+
+.momentum-value {
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.positive-momentum .momentum-value {
+  background-color: rgba(6, 214, 160, 0.2);
+  color: #06d6a0;
+}
+
+.negative-momentum .momentum-value {
+  background-color: rgba(239, 71, 111, 0.2);
+  color: #ef476f;
+}
+
+.neutral-momentum .momentum-value {
+  background-color: rgba(170, 170, 170, 0.2);
+  color: var(--text-secondary);
+}
+
+.no-momentum-data {
+  text-align: center;
+  padding: 20px;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.on-target-teams {
+  background-color: var(--bg-tertiary);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.on-target-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.on-target-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.on-target-team {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: var(--bg-secondary);
+  border-radius: 20px;
+}
+
+.on-target-team img, .on-target-team .team-logo-placeholder {
+  margin-right: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .accuracy-overview,
+  .momentum-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .season-details-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .accuracy-highlights {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .team-momentum-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .team-momentum-position {
+    width: 100%;
+    justify-content: center;
+    margin-right: 0;
+  }
+  
+  .team-details {
+    width: 100%;
+  }
+  
+  .momentum-value {
+    align-self: flex-end;
+  }
+}
+
+/* CSS for User Head-to-Head component - Add to App.css */
+
+.user-comparison-controls {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.select-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+}
+
+.select-wrapper label {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.user-select {
+  padding: 10px 15px;
+  border-radius: 6px;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  font-size: 1rem;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23aaaaaa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+}
+
+.user-select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(58, 134, 255, 0.2);
+}
+
+.user-select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.no-comparison-data {
+  text-align: center;
+  padding: 30px;
+  background-color: var(--bg-tertiary);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.comparison-results {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.similarity-meter {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--bg-tertiary);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.similarity-percentage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.percentage-value {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.percentage-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.similarity-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+}
+
+.similarity-stat {
+  background-color: var(--bg-secondary);
+  padding: 15px;
+  border-radius: 6px;
+  min-width: 200px;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-bottom: 5px;
+}
+
+.stat-value {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.biggest-differences {
+  background-color: var(--bg-tertiary);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.differences-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.differences-table-wrapper {
+  overflow-x: auto;
+}
+
+.differences-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.differences-table th {
+  background-color: var(--bg-secondary);
+  padding: 10px 15px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.differences-table td {
+  padding: 10px 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.difference-value {
+  font-weight: 600;
+  color: #ef476f;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .user-comparison-controls {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .similarity-meter {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .similarity-details {
+    width: 100%;
+  }
+}
