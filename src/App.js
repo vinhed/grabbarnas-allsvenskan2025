@@ -91,8 +91,8 @@ function App() {
         const consensusRankings = calculateConsensusRankings(predictionsOnly);
         setSortedConsensusRankings(consensusRankings);
         
-        // Calculate fun statistics
-        const stats = calculateFunStats(predictionsOnly, consensusRankings);
+        // Calculate fun statistics with supported teams info
+        const stats = calculateFunStats(predictionsOnly, consensusRankings, supportedTeamsMap);
         setFunStats(stats);
         
         // Fetch API data for team logos and standings

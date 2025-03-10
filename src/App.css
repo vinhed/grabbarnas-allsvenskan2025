@@ -2207,3 +2207,501 @@ tr.relegation-playoff td.supported-team-cell {
     margin-top: 4px;
   }
 }
+
+/* Add these styles to your App.css file */
+
+/* Stats category tabs */
+.stats-category-tabs {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.stats-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 15px;
+  background-color: var(--bg-tertiary);
+  border: none;
+  border-radius: 20px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  min-width: 120px;
+  flex: 1;
+}
+
+.stats-tab:hover {
+  background-color: var(--bg-secondary);
+  transform: translateY(-2px);
+}
+
+.stats-tab.active {
+  background-color: var(--accent);
+  color: white;
+  box-shadow: 0 4px 8px rgba(58, 134, 255, 0.3);
+}
+
+.tab-icon {
+  margin-right: 8px;
+  font-size: 1rem;
+}
+
+/* More compact fun stats grid */
+.fun-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 15px;
+}
+
+.compact-fun-stat-card {
+  display: flex;
+  align-items: flex-start;
+  background-color: var(--bg-tertiary);
+  padding: 15px;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-left: 3px solid transparent;
+  height: 100%;
+}
+
+.compact-fun-stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.fun-stat-icon {
+  font-size: 1.8rem;
+  margin-right: 12px;
+  opacity: 0.9;
+  margin-top: 2px;
+}
+
+.fun-stat-content {
+  flex: 1;
+}
+
+.fun-stat-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.fun-stat-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+}
+
+.fun-stat-description {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+.no-stats-message {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 30px;
+  color: var(--text-secondary);
+  font-style: italic;
+  background-color: var(--bg-tertiary);
+  border-radius: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .stats-category-tabs {
+    gap: 8px;
+  }
+  
+  .stats-tab {
+    padding: 8px 10px;
+    font-size: 0.8rem;
+    min-width: auto;
+  }
+  
+  .tab-icon {
+    margin-right: 5px;
+  }
+  
+  .tab-text {
+    font-size: 0.75rem;
+  }
+  
+  .fun-stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Color variations for fun stat cards */
+.compact-fun-stat-card:nth-child(1) {
+  border-left-color: var(--accent);
+}
+.compact-fun-stat-card:nth-child(1) .fun-stat-value {
+  color: var(--accent);
+}
+
+.compact-fun-stat-card:nth-child(2) {
+  border-left-color: var(--accent2);
+}
+.compact-fun-stat-card:nth-child(2) .fun-stat-value {
+  color: var(--accent2);
+}
+
+.compact-fun-stat-card:nth-child(3) {
+  border-left-color: var(--accent3);
+}
+.compact-fun-stat-card:nth-child(3) .fun-stat-value {
+  color: var(--accent3);
+}
+
+.compact-fun-stat-card:nth-child(4) {
+  border-left-color: #f72585;
+}
+.compact-fun-stat-card:nth-child(4) .fun-stat-value {
+  color: #f72585;
+}
+
+.compact-fun-stat-card:nth-child(5) {
+  border-left-color: #4361ee;
+}
+.compact-fun-stat-card:nth-child(5) .fun-stat-value {
+  color: #4361ee;
+}
+
+.compact-fun-stat-card:nth-child(6) {
+  border-left-color: #4cc9f0;
+}
+.compact-fun-stat-card:nth-child(6) .fun-stat-value {
+  color: #4cc9f0;
+}
+
+.compact-fun-stat-card:nth-child(7) {
+  border-left-color: #f77f00;
+}
+.compact-fun-stat-card:nth-child(7) .fun-stat-value {
+  color: #f77f00;
+}
+
+.compact-fun-stat-card:nth-child(8) {
+  border-left-color: #7209b7;
+}
+.compact-fun-stat-card:nth-child(8) .fun-stat-value {
+  color: #7209b7;
+}
+
+/* Add these styles to your App.css file for multi-item display */
+
+/* Multiple people display */
+.multi-people {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.person-with-team {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.person-with-team span {
+  white-space: nowrap;
+}
+
+.separator {
+  margin: 0 2px;
+  color: var(--text-secondary);
+}
+
+/* Multiple teams display */
+.multi-teams {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.team-with-logo {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.team-with-logo span {
+  white-space: nowrap;
+}
+
+/* Adjust the fun stat value to handle longer content */
+.fun-stat-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  line-height: 1.3;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Make cards taller to accommodate multiple items */
+.compact-fun-stat-card {
+  min-height: 140px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .person-with-team, .team-with-logo {
+    margin-bottom: 3px;
+  }
+  
+  .fun-stat-value {
+    font-size: 1.1rem;
+  }
+}
+
+/* Updated styles for multiple teams display */
+.multi-teams {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.team-with-logo {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 0;  /* Remove right margin to let separator handle spacing */
+}
+
+.separator {
+  margin: 0 4px;  /* Add consistent spacing around separators */
+  color: var(--text-secondary);
+  white-space: nowrap;  /* Prevent separator from breaking */
+}
+
+/* Make the content area of the fun stat cards have some minimum height */
+.fun-stat-content {
+  flex: 1;
+  min-height: 100px;  /* Ensures enough space for multiline content */
+}
+
+/* Adjust the fun stat value for better spacing with multiple items */
+.fun-stat-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 8px;  /* Increase bottom margin for better separation */
+  line-height: 1.4;    /* Increase line height for readability */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  word-break: normal;  /* Don't break words */
+  overflow-wrap: anywhere;  /* But do wrap long items */
+}
+
+/* CSS for vertical lists in fun stats */
+
+/* Vertical list containers */
+.vertical-teams-list,
+.vertical-people-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+/* Individual items in vertical lists */
+.vertical-team-item,
+.vertical-person-item {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-secondary);
+  border-radius: 6px;
+  padding: 6px 10px;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.vertical-team-item:hover,
+.vertical-person-item:hover {
+  transform: translateX(3px);
+  background-color: var(--row-hover);
+}
+
+/* Item content */
+.team-with-logo,
+.person-with-team {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Adjust logo size and spacing */
+.team-with-logo .team-logo {
+  height: 20px;
+  width: 20px;
+  margin-right: 8px;
+}
+
+.person-with-team .team-logo-small {
+  height: 16px;
+  width: 16px;
+  margin-left: 8px;
+}
+
+/* Make the fun stat cards taller to accommodate vertical lists */
+.compact-fun-stat-card {
+  min-height: 180px;
+}
+
+/* Adjust the value display to work better with vertical lists */
+.fun-stat-value {
+  margin-bottom: 10px;
+}
+
+/* Add a subtle marker for vertical lists */
+.vertical-team-item::before,
+.vertical-person-item::before {
+  content: '•';
+  margin-right: 6px;
+  color: var(--accent);
+  font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .vertical-team-item,
+  .vertical-person-item {
+    padding: 4px 8px;
+  }
+  
+  .compact-fun-stat-card {
+    min-height: 160px;
+  }
+}
+
+/* Color variations for vertical list items */
+.vertical-team-item:nth-child(1),
+.vertical-person-item:nth-child(1) {
+  border-left: 2px solid var(--accent);
+}
+
+.vertical-team-item:nth-child(2),
+.vertical-person-item:nth-child(2) {
+  border-left: 2px solid var(--accent2);
+}
+
+.vertical-team-item:nth-child(3),
+.vertical-person-item:nth-child(3) {
+  border-left: 2px solid var(--accent3);
+}
+
+.vertical-team-item:nth-child(4),
+.vertical-person-item:nth-child(4) {
+  border-left: 2px solid #f72585;
+}
+
+.vertical-team-item:nth-child(5),
+.vertical-person-item:nth-child(5) {
+  border-left: 2px solid #4361ee;
+}
+
+.vertical-team-item:nth-child(6),
+.vertical-person-item:nth-child(6) {
+  border-left: 2px solid #4cc9f0;
+}
+
+/* CSS for special vertical lists (Hometown Bias and Rivalry) */
+
+/* Vertical info list container */
+.vertical-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+/* Individual info items */
+.vertical-info-item {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-secondary);
+  border-radius: 6px;
+  padding: 8px 12px;
+  border-left: 2px solid var(--accent);
+}
+
+/* Info item components */
+.info-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
+}
+
+.info-value {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Rivalry specific styles */
+.rivalry-teams-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.rivalry-team {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.rivalry-vs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: var(--accent);
+  margin: 0 2px;
+  margin-right: 12px;
+}
+
+/* Rivalry color variations */
+.rivalry-teams {
+  border-left-color: var(--accent);
+}
+
+.rivalry-description {
+  border-left-color: var(--accent2);
+}
+
+/* Bias level variations */
+.vertical-info-item:nth-child(1) {
+  border-left-color: var(--accent);
+}
+
+.vertical-info-item:nth-child(2) {
+  border-left-color: var(--accent2);
+}
+
+/* Make font size smaller in mobile */
+@media (max-width: 768px) {
+  .info-value {
+    font-size: 0.95rem;
+  }
+  
+  .info-label {
+    font-size: 0.75rem;
+  }
+}

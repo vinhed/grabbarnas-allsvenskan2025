@@ -5,7 +5,6 @@ import FunStats from '../components/FunStats';
 import ConsensusStandingsTable from '../components/ConsensusStandingsTable';
 import PredictionsTable from '../components/PredictionsTable';
 import EnhancedPredictionTracker from '../components/EnhancedPredictionTracker';
-import SupporterTeamSection from '../components/SupporterTeamSection'; 
 
 const Dashboard = ({ 
   bets, 
