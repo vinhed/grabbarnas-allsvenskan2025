@@ -1,22 +1,57 @@
-<!-- public/index.html -->
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no, maximum-scale=1" />
     <meta name="theme-color" content="#121212" />
-    <meta
-      name="description"
-      content="Allsvenskan 2025 Prediction League"
-    />
+    <meta name="description" content="Grabbarnas Allsvenskan 2025 Prediction League - Track football predictions and standings." />
+    
+    <!-- iOS specific meta tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Allsvenskan 2025" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    
+    <!-- Microsoft Tile -->
+    <meta name="msapplication-TileColor" content="#121212" />
+    <meta name="msapplication-TileImage" content="%PUBLIC_URL%/logo192.png" />
+    
+    <!-- Web App Manifest -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     
-    <!-- Google Fonts - Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Preconnect to GitHub for faster data loading -->
+    <link rel="preconnect" href="https://raw.githubusercontent.com" />
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Allsvenskan 2025 Predictions" />
+    <meta property="og:description" content="Track and compare Allsvenskan 2025 football predictions." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="%PUBLIC_URL%/og-image.jpg" />
+    
+    <!-- Prevent touch callout on iOS -->
+    <style>
+      * {
+        -webkit-touch-callout: none;
+      }
+      
+      /* Add momentum scrolling on iOS */
+      body, .table-wrapper, .tab-container, .stats-category-tabs {
+        -webkit-overflow-scrolling: touch;
+      }
+      
+      /* Add pull-to-refresh visual indicator space */
+      body {
+        padding-top: env(safe-area-inset-top, 0px);
+      }
+      
+      /* Ensure content doesn't get hidden behind system bars */
+      .container {
+        padding-left: max(20px, env(safe-area-inset-left));
+        padding-right: max(20px, env(safe-area-inset-right));
+        padding-bottom: max(20px, env(safe-area-inset-bottom));
+      }
+    </style>
     
     <title>Grabbarnas Allsvenskan 2025</title>
   </head>

@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import Dashboard from './pages/Dashboard';
 import { fetchAllsvenskanStandings, fetchFullData } from './api/allsvenskanApi';
 import { calculateConsensusRankings, calculateFunStats } from './utils/statsCalculator';
+import { initMobileEnhancements, optimizeTablesForMobile, enhanceScrolling } from './utils/mobileUtils';
 import './App.css';
 
 function App() {
@@ -18,10 +19,25 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [apiData, setApiData] = useState({});
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if device is mobile on mount and on resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
   // FOR DEVELOPMENT: Mock data to use if fetch fails
   const mockBets = {
-    "Martin": {
+    "A": {
       "predictions": [
         "Malmö FF", "Djurgården", "Hammarby", "AIK", "BK Häcken", "IF Elfsborg",
         "IFK Göteborg", "IFK Norrköping", "IK Sirius", "BP", "Mjällby AIF",
@@ -29,7 +45,7 @@ function App() {
       ],
       "supportedTeam": "AIK"
     },
-    "Johan": {
+    "B": {
       "predictions": [
         "Malmö FF", "AIK", "Djurgården", "Hammarby", "IF Elfsborg", "BK Häcken",
         "IFK Göteborg", "IFK Norrköping", "Halmstads BK", "Mjällby AIF", "BP",
@@ -37,13 +53,13 @@ function App() {
       ],
       "supportedTeam": "Djurgården"
     },
-    "Erik": {
+    "C": {
       "predictions": [
         "Malmö FF", "Hammarby", "Djurgården", "IF Elfsborg", "BK Häcken", "AIK",
         "IFK Norrköping", "IFK Göteborg", "BP", "IK Sirius", "Mjällby AIF",
         "Halmstads BK", "IFK Värnamo", "GAIS", "Östers IF", "Degerfors IF"
       ],
-      "supportedTeam": "Djurgården"
+      "supportedTeam": "Hammarby"
     }
   };
 
@@ -115,6 +131,13 @@ function App() {
         }
         
         setIsLoading(false);
+        
+        // Initialize mobile enhancements after data is loaded
+        setTimeout(() => {
+          initMobileEnhancements();
+          optimizeTablesForMobile();
+          enhanceScrolling();
+        }, 500);
       } catch (error) {
         console.error("Error loading application data:", error);
         setError("Failed to load application data. Please try again later.");
@@ -276,6 +299,7 @@ function App() {
                   funStats={funStats}
                   teamLogos={teamLogos}
                   apiData={apiData}
+                  isMobile={isMobile}
                 />
               } 
             />

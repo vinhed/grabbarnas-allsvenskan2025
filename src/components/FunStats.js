@@ -119,7 +119,6 @@ const FunStats = ({ stats, supportedTeams, teamLogos }) => {
             {teams.map((team, index) => {
               const trimmedTeam = team.trim();
               const teamColor = getTeamColor(trimmedTeam);
-              const teams = trimmedTeam.split(" vs ");
               
               return (
                 <React.Fragment key={index}>
@@ -136,7 +135,11 @@ const FunStats = ({ stats, supportedTeams, teamLogos }) => {
                     <TeamLogo team={teams[0]} logoUrl={teamLogos[teams[0]]} size="normal" />
                     <div className="rivalry-vs">vs</div>
                     <TeamLogo team={teams[1]} logoUrl={teamLogos[teams[1]]} size="normal" />
+
                   </div>
+                  {index < teams.length - 1 && (
+                    <div className="rivalry-vs">vs</div>
+                  )}
                 </React.Fragment>
               );
             })}
@@ -172,10 +175,11 @@ const FunStats = ({ stats, supportedTeams, teamLogos }) => {
             >
               <div className="person-with-team" style={{ display: "flex", alignItems: "center" }}>
                 {team && teamLogos[team] && (
-                  <TeamLogo team={team} logoUrl={teamLogos[team]} size="normal" />
+                  <TeamLogo team={team} logoUrl={teamLogos[team]} size="small" />
                 )}
                 <span style={{ 
                   color: teamColor, 
+                  marginLeft: "6px", 
                   fontWeight: "600" 
                 }}>{trimmedName}</span>
               </div>
@@ -485,7 +489,7 @@ const FunStats = ({ stats, supportedTeams, teamLogos }) => {
         color: "var(--accent)"
       },
       stats.rivalryStats && {
-        title: "Position Swaps",
+        title: "Fiercest Rivalry",
         value: displayRivalry(stats.rivalryStats.teams, stats.rivalryStats.description),
         rawValue: stats.rivalryStats.teams,
         description: "Teams with most position switches",

@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Allsvenskan 2025",
+  "name": "Grabbarnas Allsvenskan 2025 Predictions",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,36 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#121212",
+  "background_color": "#121212",
+  "orientation": "portrait",
+  "description": "Track Allsvenskan 2025 predictions and standings.",
+  "screenshots": [
+    {
+      "src": "screenshot1.png",
+      "type": "image/png",
+      "sizes": "540x720"
+    },
+    {
+      "src": "screenshot2.png",
+      "type": "image/png",
+      "sizes": "540x720"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "View Standings",
+      "short_name": "Standings",
+      "description": "View current standings",
+      "url": "/?view=standings",
+      "icons": [{ "src": "standings.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "View Predictions",
+      "short_name": "Predictions",
+      "description": "View current predictions",
+      "url": "/?view=predictions",
+      "icons": [{ "src": "predictions.png", "sizes": "192x192" }]
+    }
+  ]
 }
