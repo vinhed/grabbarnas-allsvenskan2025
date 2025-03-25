@@ -7,6 +7,7 @@ import PredictionsTable from '../components/PredictionsTable';
 import EnhancedPredictionTracker from '../components/EnhancedPredictionTracker';
 import MobileDashboard from '../components/MobileDashboard';
 import MobileOptimizedTable from '../components/MobileOptimizedTable';
+import PerformanceAnalysisTable from '../components/PerformanceAnalysisTable';
 import '../components/MobileOptimizedTable.css';
 import '../components/MobileDashboard.css';
 
@@ -91,6 +92,13 @@ const Dashboard = ({
       <StatsCards 
         bets={bets} 
         consensusRankings={sortedConsensusRankings} 
+        supportedTeams={supportedTeams}
+      />
+
+      {/* Performance Analysis Table - New Component */}
+      <PerformanceAnalysisTable
+        bets={bets}
+        teamLogos={teamLogos}
         supportedTeams={supportedTeams}
       />
       

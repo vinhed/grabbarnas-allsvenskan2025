@@ -1,0 +1,365 @@
+/* src/components/PerformanceAnalysisTable.css */
+
+.performance-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.performance-table th {
+  text-align: left;
+  padding: 12px 15px;
+  background-color: var(--header-bg, #2a2a2a);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.performance-table th.sortable-header {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease;
+}
+
+.performance-table th.sortable-header:hover {
+  background-color: rgba(58, 134, 255, 0.2);
+}
+
+.performance-table td {
+  padding: 10px 15px;
+  border-bottom: 1px solid var(--border-color, #333);
+}
+
+/* Clickable row styling */
+.clickable-row {
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.clickable-row:hover {
+  background-color: rgba(58, 134, 255, 0.1);
+}
+
+.clickable-row:active {
+  transform: translateY(1px);
+  background-color: rgba(58, 134, 255, 0.15);
+}
+
+.performance-rating {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent, #3a86ff);
+}
+
+.team-prediction {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.participant-with-team {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.prediction-rating {
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background-color: rgba(58, 134, 255, 0.15);
+  color: var(--accent, #3a86ff);
+  margin-left: auto;
+}
+
+.best-prediction .prediction-rating {
+  background-color: rgba(6, 214, 160, 0.15);
+  color: #06d6a0;
+}
+
+.worst-prediction .prediction-rating {
+  background-color: rgba(239, 71, 111, 0.15);
+  color: #ef476f;
+}
+
+/* Medal styling */
+.performance-table tr.medal-1 {
+  background-color: rgba(255, 215, 0, 0.08);
+}
+
+.performance-table tr.medal-1 .performance-rating {
+  color: gold;
+}
+
+.performance-table tr.medal-2 {
+  background-color: rgba(192, 192, 192, 0.08);
+}
+
+.performance-table tr.medal-2 .performance-rating {
+  color: silver;
+}
+
+.performance-table tr.medal-3 {
+  background-color: rgba(205, 127, 50, 0.08);
+}
+
+.performance-table tr.medal-3 .performance-rating {
+  color: #cd7f32; /* bronze */
+}
+
+/* View toggle buttons */
+.view-toggle-container {
+  display: none; /* Hidden by default, shown on mobile */
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.view-toggle-btn {
+  background-color: var(--bg-tertiary, #333);
+  border: none;
+  padding: 8px 16px;
+  margin: 0 5px;
+  border-radius: 20px;
+  color: var(--text-secondary, #ccc);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.view-toggle-btn.active {
+  background-color: var(--accent, #3a86ff);
+  color: white;
+  box-shadow: 0 2px 6px rgba(58, 134, 255, 0.3);
+}
+
+/* Mobile cards view */
+.mobile-performance-cards {
+  display: none; /* Hidden by default, shown on mobile in card mode */
+}
+
+.performance-card {
+  background-color: var(--bg-secondary, #222);
+  border-radius: 10px;
+  margin-bottom: 15px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.performance-card.clickable {
+  cursor: pointer;
+}
+
+.performance-card.clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.performance-card.clickable:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.performance-card .card-header {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  background-color: var(--bg-tertiary, #333);
+  border-bottom: 1px solid var(--border-color, #444);
+}
+
+.performance-card .card-rank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  margin-right: 12px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.performance-card.medal-1 .card-rank {
+  background-color: gold;
+  color: #000;
+}
+
+.performance-card.medal-2 .card-rank {
+  background-color: silver;
+  color: #000;
+}
+
+.performance-card.medal-3 .card-rank {
+  background-color: #cd7f32;
+  color: #000;
+}
+
+.performance-card .participant-with-team {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.performance-card .card-score {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent, #3a86ff);
+  margin-left: 15px;
+}
+
+.performance-card.medal-1 .card-score {
+  color: gold;
+}
+
+.performance-card.medal-2 .card-score {
+  color: silver;
+}
+
+.performance-card.medal-3 .card-score {
+  color: #cd7f32;
+}
+
+.performance-card .card-body {
+  padding: 15px;
+}
+
+.performance-card .card-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.performance-card .stat-item {
+  text-align: center;
+  flex: 1;
+}
+
+.performance-card .stat-label {
+  font-size: 0.7rem;
+  color: var(--text-secondary, #aaa);
+  margin-bottom: 5px;
+}
+
+.performance-card .stat-value {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.performance-card .card-predictions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.performance-card .prediction {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+.performance-card .prediction-label {
+  font-size: 0.7rem;
+  color: var(--text-secondary, #aaa);
+  margin-bottom: 6px;
+}
+
+.performance-card .team-prediction {
+  display: flex;
+  align-items: center;
+}
+
+.performance-card .team-prediction .prediction-rating {
+  margin-left: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+  .performance-table th, 
+  .performance-table td {
+    padding: 10px 8px;
+    font-size: 0.9rem;
+  }
+  
+  .team-prediction span {
+    font-size: 0.85rem;
+  }
+  
+  .performance-rating {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .view-toggle-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .mobile-performance-cards {
+    display: block;
+  }
+  
+  /* Hide description and explanation on mobile */
+  .mobile-hide {
+    display: none;
+  }
+  
+  /* Show cards when in card mode */
+  .view-toggle-btn.active[class*="cards"] ~ .table-wrapper {
+    display: none;
+  }
+  
+  /* Show table when in table mode */
+  .view-toggle-btn.active[class*="table"] ~ .mobile-performance-cards {
+    display: none;
+  }
+  
+  /* Optimize table on smaller screens */
+  .performance-table th:nth-child(4),
+  .performance-table td:nth-child(4) {
+    display: none; /* Hide average difference column */
+  }
+  
+  .participant-name {
+    max-width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  /* Add ripple effect for touch feedback */
+  .clickable-row:active::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(58, 134, 255, 0.2);
+    animation: ripple 0.4s ease-out;
+  }
+  
+  @keyframes ripple {
+    from { opacity: 1; transform: scale(0.8); }
+    to { opacity: 0; transform: scale(2); }
+  }
+}
+
+@media (max-width: 576px) {
+  .performance-table th:nth-child(5),
+  .performance-table th:nth-child(6),
+  .performance-table td:nth-child(5),
+  .performance-table td:nth-child(6) {
+    display: none; /* Hide best and worst prediction columns */
+  }
+  
+  .performance-card .card-header {
+    padding: 10px;
+  }
+  
+  .performance-card .card-body {
+    padding: 10px;
+  }
+}
