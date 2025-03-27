@@ -348,12 +348,6 @@
 }
 
 @media (max-width: 576px) {
-  .performance-table th:nth-child(5),
-  .performance-table th:nth-child(6),
-  .performance-table td:nth-child(5),
-  .performance-table td:nth-child(6) {
-    display: none; /* Hide best and worst prediction columns */
-  }
   
   .performance-card .card-header {
     padding: 10px;

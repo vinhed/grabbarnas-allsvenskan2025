@@ -6,7 +6,7 @@ import { fetchFullData } from '../api/allsvenskanApi';
 import './PersonPerformanceDetails.css';
 import './PerformanceAnalysisTable.css';
 
-const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams }) => {
+const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile }) => {
   const [currentStandings, setCurrentStandings] = useState([]);
   const [performanceData, setPerformanceData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -48,7 +48,6 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams }) => {
     
     // Set initial view mode based on screen width
     const handleResize = () => {
-      setViewMode(window.innerWidth <= 768 ? 'cards' : 'table');
     };
     
     // Set initial view mode
@@ -148,8 +147,8 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams }) => {
         }
       }
       
-      // Calculate the final score (240 - total score)
-      const finalScore = 240 - totalScore;
+      // Calculate the final score (120 - total score)
+      const finalScore = 120 - totalScore;
       const teamsMatched = teamDetails.length;
       
       // Calculate best and worst team ratings
@@ -242,71 +241,6 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams }) => {
     return sortConfig.direction === 'asc' ? ' ↑' : ' ↓';
   };
 
-  // Render mobile cards view
-  const renderCardsView = () => {
-    return (
-      <div className="mobile-performance-cards">
-        {performanceData.map((person, index) => {
-          const position = index + 1;
-          const medalClass = position <= 3 ? `medal-${position}` : "";
-          
-          return (
-            <div 
-              key={person.person} 
-              className={`performance-card ${medalClass} clickable`}
-              onClick={() => setSelectedPerson(person.person)}
-            >
-              <div className="card-header">
-                <div className="card-rank">{position}</div>
-                <div className="participant-with-team">
-                  <span className="participant-name">{person.person}</span>
-                  {person.supportedTeam && teamLogos[person.supportedTeam] && (
-                    <div className="supported-team-icon">
-                      <TeamLogo team={person.supportedTeam} logoUrl={teamLogos[person.supportedTeam]} size="small" />
-                    </div>
-                  )}
-                </div>
-                <div className="card-score">{person.averageRating}</div>
-              </div>
-              
-              <div className="card-body">
-                <div className="card-stats">
-                  <div className="stat-item">
-                    <div className="stat-label">Accuracy</div>
-                    <div className="stat-value">{person.accuracy}%</div>
-                  </div>
-                  <div className="stat-item">
-                    <div className="stat-label">Avg. Diff</div>
-                    <div className="stat-value">{person.averageDifference}</div>
-                  </div>
-                </div>
-                
-                <div className="card-predictions">
-                  <div className="prediction best-prediction">
-                    <div className="prediction-label">Best</div>
-                    <div className="team-prediction">
-                      <TeamLogo team={person.bestTeam} logoUrl={teamLogos[person.bestTeam]} size="small" />
-                      <span>{person.bestTeam}</span>
-                      <span className="prediction-rating">({person.bestRating})</span>
-                    </div>
-                  </div>
-                  <div className="prediction worst-prediction">
-                    <div className="prediction-label">Worst</div>
-                    <div className="team-prediction">
-                      <TeamLogo team={person.worstTeam} logoUrl={teamLogos[person.worstTeam]} size="small" />
-                      <span>{person.worstTeam}</span>
-                      <span className="prediction-rating">({person.worstRating})</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
-
   // Render table view
   const renderTableView = () => {
     return (
@@ -315,31 +249,27 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams }) => {
           <thead>
             <tr>
               <th 
-                onClick={(e) => handleSort('person', e)}
                 className="sortable-header"
               >
-                Participant{renderSortIndicator('person')}
+                Participant
               </th>
               <th 
-                onClick={(e) => handleSort('averageRating', e)}
                 className="sortable-header"
               >
-                Score{renderSortIndicator('averageRating')}
+                Score
               </th>
               <th 
-                onClick={(e) => handleSort('accuracy', e)}
                 className="sortable-header"
               >
-                Accuracy{renderSortIndicator('accuracy')}
+                Accuracy
               </th>
-              <th 
-                onClick={(e) => handleSort('averageDifference', e)}
+              <th
                 className="sortable-header"
               >
-                Avg. Diff{renderSortIndicator('averageDifference')}
+                Avg. Diff
               </th>
-              <th>Best Prediction</th>
-              <th>Worst Prediction</th>
+              <th>Best</th>
+              <th>Worst</th>
             </tr>
           </thead>
           <tbody>
@@ -358,7 +288,7 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams }) => {
                       <span className="participant-name">{person.person}</span>
                       {person.supportedTeam && teamLogos[person.supportedTeam] && (
                         <div className="supported-team-icon">
-                          <TeamLogo team={person.supportedTeam} logoUrl={teamLogos[person.supportedTeam]} size="small" />
+                          {!isMobile && <TeamLogo team={person.supportedTeam} logoUrl={teamLogos[person.supportedTeam]} size="small" />}
                         </div>
                       )}
                     </div>
@@ -369,8 +299,8 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams }) => {
                   <td className="best-prediction">
                     {person.bestTeam && (
                       <div className="team-prediction">
-                        <TeamLogo team={person.bestTeam} logoUrl={teamLogos[person.bestTeam]} />
-                        <span>{person.bestTeam}</span>
+                        {<TeamLogo team={person.bestTeam} logoUrl={teamLogos[person.bestTeam]} />}
+                        {!isMobile && <span>{person.bestTeam}</span>}
                         <span className="prediction-rating"> ({person.bestRating})</span>
                       </div>
                     )}
@@ -378,8 +308,8 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams }) => {
                   <td className="worst-prediction">
                     {person.worstTeam && (
                       <div className="team-prediction">
-                        <TeamLogo team={person.worstTeam} logoUrl={teamLogos[person.worstTeam]} />
-                        <span>{person.worstTeam}</span>
+                        {<TeamLogo team={person.worstTeam} logoUrl={teamLogos[person.worstTeam]} />}
+                        {!isMobile && <span>{person.worstTeam}</span>}
                         <span className="prediction-rating"> ({person.worstRating})</span>
                       </div>
                     )}
@@ -403,37 +333,8 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams }) => {
 
   return (
     <section className="section">
-      <h2 className="section-title"><span className="icon">📊</span> Prediction Performance Analysis</h2>
-      
-      {/* View toggle buttons (only shown on mobile) */}
-      <div className="view-toggle-container">
-        <button 
-          className={`view-toggle-btn ${viewMode === 'table' ? 'active' : ''}`}
-          onClick={() => setViewMode('table')}
-        >
-          Table View
-        </button>
-        <button 
-          className={`view-toggle-btn ${viewMode === 'cards' ? 'active' : ''}`}
-          onClick={() => setViewMode('cards')}
-        >
-          Card View
-        </button>
-      </div>
-      
-      {/* Render appropriate view based on viewMode */}
-      {viewMode === 'table' ? renderTableView() : renderCardsView()}
-      
-      {/* Person Performance Details Modal */}
-      {selectedPerson && (
-        <PersonPerformanceDetails
-          person={selectedPerson}
-          predictions={bets[selectedPerson]}
-          currentStandings={currentStandings}
-          teamLogos={teamLogos}
-          onClose={() => setSelectedPerson(null)}
-        />
-      )}
+      <h2 className="section-title"><span className="icon">🏆</span> Prediction Performance Analysis</h2>
+      {renderTableView()}
     </section>
   );
 };

@@ -2,9 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import TeamLogo from './TeamLogo';
 import './AllsvenskanStandingsTable.css';
+import { teamNameFormat } from '../utils/formatHelpers';
 
-const AllsvenskanStandingsTable = ({ currentStandings, teamLogos, apiData }) => {
-  const [expandedView, setExpandedView] = useState(true);
+const AllsvenskanStandingsTable = ({ currentStandings, teamLogos, apiData, isMobile }) => {
+  const [expandedView, setExpandedView] = useState(!isMobile);
   const [highlightedTeam, setHighlightedTeam] = useState(null);
 
   // Check if we have actual standings data
@@ -19,7 +20,7 @@ const AllsvenskanStandingsTable = ({ currentStandings, teamLogos, apiData }) => 
     const processedData = [];
 
     // Process each team
-    for (const team of currentStandings) {
+    for (let team of currentStandings) {
       // Find team in API data
       const teamData = Object.values(apiData).find(t => 
         t.displayName === team || t.name === team
@@ -61,6 +62,8 @@ const AllsvenskanStandingsTable = ({ currentStandings, teamLogos, apiData }) => 
           form = teamData.form.slice(0, 5);
         }
 
+        team = teamNameFormat[team];
+        
         // Add team to processed data
         processedData.push({
           position,
@@ -224,8 +227,8 @@ const AllsvenskanStandingsTable = ({ currentStandings, teamLogos, apiData }) => 
                       <td className="position-col">{team.position}</td>
                       <td className="team-col">
                         <div className="team-name-with-logo">
-                          <TeamLogo team={team.name} logoUrl={team.logo} />
-                          <span>{team.name}</span>
+                          {<TeamLogo team={team.name} logoUrl={team.logo} size='big'/>}
+                          {!isMobile && <span>{team.name}</span>}
                         </div>
                       </td>
                       <td className="numeric-col">{team.stats.gp}</td>

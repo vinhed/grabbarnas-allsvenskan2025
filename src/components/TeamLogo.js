@@ -16,8 +16,8 @@ const TeamLogo = ({ team, logoUrl, size = 'normal' }) => {
   };
 
   // Determine CSS class based on size
-  const sizeClass = size === 'small' ? 'team-logo-small' : 'team-logo';
-  const placeholderClass = size === 'small' ? 'team-logo-placeholder-small' : 'team-logo-placeholder';
+  const sizeClass = (size === 'small') ? 'team-logo-small' : (size === 'big' ? 'team-logo-big': 'team-logo');
+  const placeholderClass = (size === 'small') ? 'team-logo-placeholder-small' : (size === 'big' ? 'team-logo-placeholder-big': 'team-logo-placeholder');
 
   if (!logoUrl || hasError) {
     return (

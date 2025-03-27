@@ -28,15 +28,15 @@ const PaginatedDashboard = ({
   const pages = [
     {
       title: "Performance & Standings",
-      icon: "📊",
+      icon: "🏆",
       components: [
-        { name: "Performance Analysis", component: <PerformanceAnalysisTable bets={bets} teamLogos={teamLogos} supportedTeams={supportedTeams} /> },
-        { name: "Current Standings", component: <AllsvenskanStandingsTable currentStandings={currentStandings} teamLogos={teamLogos} apiData={apiData} /> }
+        { name: "Performance Analysis", component: <PerformanceAnalysisTable bets={bets} teamLogos={teamLogos} supportedTeams={supportedTeams} isMobile={isMobile} /> },
+        { name: "Current Standings", component: <AllsvenskanStandingsTable currentStandings={currentStandings} teamLogos={teamLogos} apiData={apiData} isMobile={isMobile} /> }
       ]
     },
     {
       title: "Statistics & Predictions",
-      icon: "🏆",
+      icon: "📊",
       components: [
         { name: "Statistics", component: <FunStats stats={funStats} supportedTeams={supportedTeams} teamLogos={teamLogos} /> },
         { name: "Individual Predictions", component: <PredictionsTable bets={bets} supportedTeams={supportedTeams} teamLogos={teamLogos} /> },
@@ -68,7 +68,7 @@ const PaginatedDashboard = ({
 
   // Handle swipe gestures for mobile
   useEffect(() => {
-    const minSwipeDistance = 50;
+    const minSwipeDistance = 999999999;
 
     const handleTouchStart = (e) => {
       setTouchEnd(null);
@@ -165,10 +165,6 @@ const PaginatedDashboard = ({
         </button>
       </div>
       
-      {/* Swipe hint for mobile */}
-      <div className="swipe-hint">
-        Swipe left or right to navigate between pages
-      </div>
     </div>
   );
 };

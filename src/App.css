@@ -2052,6 +2052,17 @@ input:checked + .toggle-slider:before {
   padding: 1px;
 }
 
+.team-logo-big {
+  height: 28px;
+  width: 28px;
+  object-fit: contain;
+  margin-left: 4px;
+  vertical-align: middle;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 1px;
+}
+
 /* Logo placeholder for different sizes */
 .team-logo-placeholder {
   display: inline-flex;
@@ -2071,6 +2082,20 @@ input:checked + .toggle-slider:before {
   display: inline-flex;
   width: 16px;
   height: 16px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  margin-left: 4px;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 8px;
+}
+
+.team-logo-placeholder-big {
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background-color: var(--accent);
   margin-left: 4px;
@@ -3001,5 +3026,11 @@ tr.relegation-playoff td.supported-team-cell {
   .header-title {
     padding-left: max(10px, env(safe-area-inset-left));
     padding-right: max(10px, env(safe-area-inset-right));
+  }
+}
+
+@media (max-width: 576px) {
+  .header-title {
+    font-size: 22px;
   }
 }

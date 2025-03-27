@@ -10,6 +10,7 @@ import { initMobileEnhancements, optimizeTablesForMobile, enhanceScrolling } fro
 import './App.css';
 import './components/PaginatedDashboard.css';
 import './components/MobilePaginatedDashboard.css';
+import {teamNameFormat} from './utils/formatHelpers';
 
 function App() {
   const [bets, setBets] = useState({});
@@ -157,7 +158,7 @@ function App() {
     if (!apiData) return teamLogos;
     
     // Create manual mapping for team names
-    const manualMapping = createManualTeamMapping();
+    const manualMapping = teamNameFormat;
     
     // Build a map of API team names to logo URLs
     const apiTeams = [];
@@ -189,7 +190,7 @@ function App() {
         const apiName = manualMapping[team];
         for (const apiTeam of apiTeams) {
           if (apiName.toLowerCase() === apiTeam.name.toLowerCase()) {
-            teamLogos[team] = apiTeam.logoUrl;
+            teamLogos[teamNameFormat[team]] = apiTeam.logoUrl;
             matched = true;
             break;
           }
@@ -200,7 +201,7 @@ function App() {
       if (!matched) {
         for (const apiTeam of apiTeams) {
           if (teamLower === apiTeam.name.toLowerCase().trim()) {
-            teamLogos[team] = apiTeam.logoUrl;
+            teamLogos[teamNameFormat[team]] = apiTeam.logoUrl;
             matched = true;
             break;
           }
@@ -213,14 +214,14 @@ function App() {
           // Our team name is in API team name
           if (teamLower.includes(apiTeam.name.toLowerCase()) || 
               teamLower.includes(apiTeam.fullName.toLowerCase())) {
-            teamLogos[team] = apiTeam.logoUrl;
+            teamLogos[teamNameFormat[team]] = apiTeam.logoUrl;
             matched = true;
             break;
           }
           // API team name is in our team name
           else if (apiTeam.name.toLowerCase().includes(teamLower) || 
                    (apiTeam.abbreviation && apiTeam.abbreviation.toLowerCase() === teamLower)) {
-            teamLogos[team] = apiTeam.logoUrl;
+            teamLogos[teamNameFormat[team]] = apiTeam.logoUrl;
             matched = true;
             break;
           }
@@ -229,48 +230,6 @@ function App() {
     }
     
     return teamLogos;
-  };
-
-  // Helper function to create manual mapping for teams
-  const createManualTeamMapping = () => {
-    return {
-      "Malmö": "Malmö FF",
-      "Malmö FF": "Malmö FF",
-      "MFF": "Malmö FF",
-      "AIK": "AIK",
-      "Djurgården": "Djurgården",
-      "DIF": "Djurgården",
-      "Hammarby": "Hammarby",
-      "Bajen": "Hammarby",
-      "IFK Göteborg": "IFK Göteborg",
-      "Göteborg": "IFK Göteborg",
-      "Blåvitt": "IFK Göteborg",
-      "Häcken": "BK Häcken",
-      "BK Häcken": "BK Häcken",
-      "Elfsborg": "IF Elfsborg",
-      "IF Elfsborg": "IF Elfsborg",
-      "IFK Norrköping": "IFK Norrköping",
-      "Peking": "IFK Norrköping",
-      "Värnamo": "IFK Värnamo",
-      "IFK Värnamo": "IFK Värnamo",
-      "Sirius": "IK Sirius",
-      "IK Sirius": "IK Sirius",
-      "Mjällby": "Mjällby AIF",
-      "Mjällby AIF": "Mjällby AIF",
-      "MAIF": "Mjällby AIF",
-      "BP": "BP",
-      "Brommapojkarna": "BP",
-      "Degerfors": "Degerfors IF",
-      "Degerfors IF": "Degerfors IF",
-      "Halmstad": "Halmstads BK",
-      "Halmstads BK": "Halmstads BK",
-      "HBK": "Halmstads BK",
-      "GAIS": "GAIS",
-      "Gais": "GAIS",
-      "Öster": "Östers IF",
-      "Östers IF": "Östers IF",
-      "Östers": "Östers IF"
-    };
   };
 
   if (isLoading) {

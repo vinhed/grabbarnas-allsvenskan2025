@@ -206,61 +206,7 @@ const setupSafeViewport = () => {
  * Setup mobile bottom navigation
  */
 const setupBottomNavigation = () => {
-  if (window.innerWidth > 576) return; // Only for small mobile devices
   
-  // If nav already exists, don't create again
-  if (document.querySelector('.mobile-nav')) return;
-  
-  const nav = document.createElement('nav');
-  nav.className = 'mobile-nav';
-  
-  const navItems = [
-    { icon: '🏆', label: 'Dashboard', target: '#prediction-performance-section' },
-    { icon: '📊', label: 'Stats', target: '.compact-fun-stats-section' },
-    { icon: '📋', label: 'Standings', target: '#standings-table' },
-    { icon: '🔮', label: 'Predictions', target: '#predictions-table' }
-  ];
-  
-  navItems.forEach(item => {
-    const navItem = document.createElement('a');
-    navItem.className = 'mobile-nav-item';
-    navItem.href = 'javascript:void(0)';
-    navItem.innerHTML = `
-      <span class="mobile-nav-icon">${item.icon}</span>
-      <span class="mobile-nav-label">${item.label}</span>
-    `;
-    
-    navItem.addEventListener('click', () => {
-      // Remove active class from all items
-      document.querySelectorAll('.mobile-nav-item').forEach(el => {
-        el.classList.remove('active');
-      });
-      
-      // Add active class to clicked item
-      navItem.classList.add('active');
-      
-      // Find target and scroll to it
-      const target = document.querySelector(item.target);
-      if (target) {
-        // Expand section if collapsed
-        const section = target.closest('.section') || target.closest('.compact-fun-stats-section');
-        if (section && section.classList.contains('collapsed')) {
-          section.classList.remove('collapsed');
-        }
-        
-        // Scroll to target
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-    
-    nav.appendChild(navItem);
-  });
-  
-  // Add to document
-  document.body.appendChild(nav);
-  
-  // Set first item as active
-  nav.querySelector('.mobile-nav-item').classList.add('active');
 };
 
 /**

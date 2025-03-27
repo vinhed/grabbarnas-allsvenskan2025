@@ -18,3 +18,42 @@ export const formatList = (itemsList) => {
       return `${itemsList.slice(0, -1).join(',  ')} & ${itemsList[itemsList.length - 1]}`;
     }
   };
+
+export const teamNameFormat = {
+  "Malmö": "Malmö FF",
+  "Malmö FF": "Malmö FF",
+  "MFF": "Malmö FF",
+  "AIK": "AIK",
+  "Djurgården": "Djurgården",
+  "DIF": "Djurgården",
+  "Hammarby": "Hammarby",
+  "Bajen": "Hammarby",
+  "IFK Göteborg": "IFK Göteborg",
+  "Göteborg": "IFK Göteborg",
+  "Blåvitt": "IFK Göteborg",
+  "Häcken": "BK Häcken",
+  "BK Häcken": "BK Häcken",
+  "Elfsborg": "IF Elfsborg",
+  "IF Elfsborg": "IF Elfsborg",
+  "IFK Norrköping": "IFK Norrköping",
+  "Peking": "IFK Norrköping",
+  "Värnamo": "IFK Värnamo",
+  "IFK Värnamo": "IFK Värnamo",
+  "Sirius": "IK Sirius",
+  "IK Sirius": "IK Sirius",
+  "Mjällby": "Mjällby AIF",
+  "Mjällby AIF": "Mjällby AIF",
+  "MAIF": "Mjällby",
+  "BP": "BP",
+  "Brommapojkarna": "BP",
+  "Degerfors": "Degerfors IF",
+  "Degerfors IF": "Degerfors IF",
+  "Halmstad": "Halmstads BK",
+  "Halmstads BK": "Halmstads BK",
+  "HBK": "Halmstads BK",
+  "GAIS": "GAIS",
+  "Gais": "GAIS",
+  "Öster": "Östers IF",
+  "Östers IF": "Östers IF",
+  "Östers": "Östers IF"
+};
