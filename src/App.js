@@ -191,6 +191,7 @@ function App() {
         for (const apiTeam of apiTeams) {
           if (apiName.toLowerCase() === apiTeam.name.toLowerCase()) {
             teamLogos[teamNameFormat[team]] = apiTeam.logoUrl;
+            teamLogos[team] = apiTeam.logoUrl;
             matched = true;
             break;
           }
@@ -202,6 +203,7 @@ function App() {
         for (const apiTeam of apiTeams) {
           if (teamLower === apiTeam.name.toLowerCase().trim()) {
             teamLogos[teamNameFormat[team]] = apiTeam.logoUrl;
+            teamLogos[team] = apiTeam.logoUrl;
             matched = true;
             break;
           }
@@ -215,6 +217,7 @@ function App() {
           if (teamLower.includes(apiTeam.name.toLowerCase()) || 
               teamLower.includes(apiTeam.fullName.toLowerCase())) {
             teamLogos[teamNameFormat[team]] = apiTeam.logoUrl;
+            teamLogos[team] = apiTeam.logoUrl;
             matched = true;
             break;
           }
@@ -222,6 +225,7 @@ function App() {
           else if (apiTeam.name.toLowerCase().includes(teamLower) || 
                    (apiTeam.abbreviation && apiTeam.abbreviation.toLowerCase() === teamLower)) {
             teamLogos[teamNameFormat[team]] = apiTeam.logoUrl;
+            teamLogos[team] = apiTeam.logoUrl;
             matched = true;
             break;
           }
