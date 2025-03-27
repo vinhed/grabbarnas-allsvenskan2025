@@ -3,11 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Dashboard from './pages/Dashboard';
+import PaginatedDashboard from './components/PaginatedDashboard';
 import { fetchAllsvenskanStandings, fetchFullData } from './api/allsvenskanApi';
 import { calculateConsensusRankings, calculateFunStats } from './utils/statsCalculator';
 import { initMobileEnhancements, optimizeTablesForMobile, enhanceScrolling } from './utils/mobileUtils';
 import './App.css';
+import './components/PaginatedDashboard.css';
+import './components/MobilePaginatedDashboard.css';
 
 function App() {
   const [bets, setBets] = useState({});
@@ -291,7 +293,7 @@ function App() {
             <Route 
               path="/" 
               element={
-                <Dashboard 
+                <PaginatedDashboard 
                   bets={bets}
                   supportedTeams={supportedTeams}
                   currentStandings={currentStandings}

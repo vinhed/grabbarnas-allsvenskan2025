@@ -1,4 +1,4 @@
-// src/pages/Dashboard.js
+// src/pages/Dashboard.js - Updated to include AllsvenskanStandingsTable
 import React, { useState, useEffect } from 'react';
 import StatsCards from '../components/StatsCard';
 import FunStats from '../components/FunStats';
@@ -8,6 +8,7 @@ import EnhancedPredictionTracker from '../components/EnhancedPredictionTracker';
 import MobileDashboard from '../components/MobileDashboard';
 import MobileOptimizedTable from '../components/MobileOptimizedTable';
 import PerformanceAnalysisTable from '../components/PerformanceAnalysisTable';
+import AllsvenskanStandingsTable from '../components/AllsvenskanStandingsTable'; // Import the new component
 import '../components/MobileOptimizedTable.css';
 import '../components/MobileDashboard.css';
 
@@ -95,11 +96,18 @@ const Dashboard = ({
         supportedTeams={supportedTeams}
       />
 
-      {/* Performance Analysis Table - New Component */}
+      {/* Performance Analysis Table */}
       <PerformanceAnalysisTable
         bets={bets}
         teamLogos={teamLogos}
         supportedTeams={supportedTeams}
+      />
+      
+      {/* Current standings table - new component */}
+      <AllsvenskanStandingsTable
+        currentStandings={currentStandings}
+        teamLogos={teamLogos}
+        apiData={apiData}
       />
       
       <EnhancedPredictionTracker 

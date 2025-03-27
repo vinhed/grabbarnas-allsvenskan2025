@@ -1,0 +1,390 @@
+/* src/components/AllsvenskanStandingsTable.css */
+
+/* View toggle controls */
+.standings-view-controls {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+  
+  .view-toggle-btn {
+    background-color: var(--bg-tertiary);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    margin: 0 5px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .view-toggle-btn.active {
+    background-color: var(--accent);
+    color: white;
+    box-shadow: 0 2px 6px rgba(58, 134, 255, 0.3);
+  }
+  
+  /* Standings table container */
+  .standings-table-wrapper {
+    overflow-x: auto;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) var(--bg-secondary);
+  }
+  
+  /* Custom scrollbar for webkit browsers */
+  .standings-table-wrapper::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  .standings-table-wrapper::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    border-radius: 4px;
+  }
+  
+  .standings-table-wrapper::-webkit-scrollbar-thumb {
+    background-color: var(--accent);
+    border-radius: 4px;
+  }
+  
+  /* Table styling */
+  .standings-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+  
+  /* Team column styling */
+  .standings-table .team-col {
+    text-align: left;
+    padding-left: 10px;
+    white-space: nowrap;
+  }
+  
+  /* Numeric columns */
+  .standings-table .numeric-col {
+    text-align: center;
+    min-width: 40px;
+  }
+  
+  /* Position column */
+  .standings-table .position-col {
+    width: 40px;
+    text-align: center;
+    font-weight: 600;
+  }
+  
+  /* Points column highlighting */
+  .standings-table .points-col {
+    font-weight: 700;
+    color: var(--accent);
+  }
+  
+  /* Table headers */
+  .standings-table thead th {
+    background-color: var(--header-bg);
+    color: var(--text-primary);
+    padding: 12px 8px;
+    font-weight: 600;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    white-space: nowrap;
+  }
+  
+  /* First column (position) sticky on mobile */
+  .standings-table thead th:first-child,
+  .standings-table tbody td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 20;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Table rows */
+  .standings-table tbody tr {
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.2s ease;
+  }
+  
+  .standings-table tbody tr:nth-child(even) {
+    background-color: var(--row-even);
+  }
+  
+  .standings-table tbody tr:nth-child(odd) {
+    background-color: var(--row-odd);
+  }
+  
+  .standings-table tbody tr:hover {
+    background-color: var(--row-hover);
+  }
+  
+  /* Make sure the first column (position) has the same color as the row */
+  .standings-table tbody tr:nth-child(even) td:first-child {
+    background-color: var(--row-even);
+  }
+  
+  .standings-table tbody tr:nth-child(odd) td:first-child {
+    background-color: var(--row-odd);
+  }
+  
+  .standings-table tbody tr:hover td:first-child {
+    background-color: var(--row-hover);
+  }
+  
+  /* Table cells */
+  .standings-table td {
+    padding: 10px 8px;
+    vertical-align: middle;
+  }
+  
+  /* Goal difference styling */
+  .positive-gd {
+    color: #10b981; /* Green for positive GD */
+  }
+  
+  .negative-gd {
+    color: #ef4444; /* Red for negative GD */
+  }
+  
+  /* Form indicators */
+  .form-indicators {
+    display: flex;
+    gap: 3px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .form-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: bold;
+  }
+  
+  .form-win {
+    background-color: rgba(16, 185, 129, 0.8);
+    color: white;
+  }
+  
+  .form-draw {
+    background-color: rgba(234, 179, 8, 0.8);
+    color: white;
+  }
+  
+  .form-loss {
+    background-color: rgba(239, 68, 68, 0.8);
+    color: white;
+  }
+  
+  .no-form-data {
+    color: var(--text-secondary);
+    font-style: italic;
+    font-size: 0.8rem;
+  }
+  
+  /* Qualifying and relegation styling */
+  .standings-table tr.europaleague {
+    background-color: var(--europaleague);
+  }
+  
+  .standings-table tr.conference-league {
+    background-color: var(--conferenceLeague);
+  }
+  
+  .standings-table tr.relegation-direct {
+    background-color: var(--relegation-direct);
+  }
+  
+  .standings-table tr.relegation-playoff {
+    background-color: var(--relegation-playoff);
+  }
+  
+  /* Make sure first column has the same background as the row */
+  .standings-table tr.europaleague td:first-child {
+    background-color: var(--europaleague);
+  }
+  
+  .standings-table tr.conference-league td:first-child {
+    background-color: var(--conferenceLeague);
+  }
+  
+  .standings-table tr.relegation-direct td:first-child {
+    background-color: var(--relegation-direct);
+  }
+  
+  .standings-table tr.relegation-playoff td:first-child {
+    background-color: var(--relegation-playoff);
+  }
+  
+  /* Make sure hover still works on special rows */
+  .standings-table tr.europaleague:hover td,
+  .standings-table tr.europaleague:hover td:first-child {
+    background-color: rgba(39, 61, 29, 1);
+  }
+  
+  .standings-table tr.conference-league:hover td,
+  .standings-table tr.conference-league:hover td:first-child {
+    background-color: rgba(63, 79, 60, 1);
+  }
+  
+  .standings-table tr.relegation-direct:hover td,
+  .standings-table tr.relegation-direct:hover td:first-child {
+    background-color: rgba(220, 53, 69, 0.3);
+  }
+  
+  .standings-table tr.relegation-playoff:hover td,
+  .standings-table tr.relegation-playoff:hover td:first-child {
+    background-color: rgba(255, 193, 7, 0.2);
+  }
+  
+  /* Table scroll note - visible on mobile */
+  .table-note {
+    margin-top: 8px;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    display: none; /* Hidden by default, shown only on mobile */
+  }
+  
+  /* No data message */
+  .no-data-message {
+    padding: 30px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-style: italic;
+    background-color: var(--bg-tertiary);
+    border-radius: 8px;
+    margin-top: 15px;
+  }
+  
+  /* Team name with logo styling */
+  .team-name-with-logo {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+  
+  .team-name-with-logo span {
+    margin-left: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 140px; /* Limit text width on small screens */
+  }
+  
+  /* Team highlighting */
+  .team-highlight td {
+    background-color: rgba(255, 215, 0, 0.15) !important;
+    box-shadow: inset 0 0 0 1px rgba(255, 215, 0, 0.3) !important;
+  }
+  
+  .team-highlight td:first-child {
+    background-color: rgba(255, 215, 0, 0.15) !important;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .standings-table {
+      font-size: 0.9rem;
+    }
+    
+    .standings-table th, 
+    .standings-table td {
+      padding: 8px 6px;
+    }
+    
+    /* Show scroll note on mobile */
+    .table-note {
+      display: block;
+    }
+    
+    /* Adjust team name text width */
+    .team-name-with-logo span {
+      max-width: 100px;
+    }
+    
+    /* Form indicators size adjustment */
+    .form-indicator {
+      width: 18px;
+      height: 18px;
+      font-size: 10px;
+    }
+    
+    /* Position more firmly sticky on mobile */
+    .standings-table th:first-child, 
+    .standings-table td:first-child {
+      left: 0;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Second column (team) also sticky on very small screens */
+    @media (max-width: 480px) {
+      .standings-table th:nth-child(2), 
+      .standings-table td:nth-child(2) {
+        position: sticky;
+        left: 40px; /* Width of the first column */
+        z-index: 15;
+      }
+      
+      .standings-table th:nth-child(2) {
+        background-color: var(--header-bg);
+      }
+      
+      .standings-table tr:nth-child(even) td:nth-child(2) {
+        background-color: var(--row-even);
+      }
+      
+      .standings-table tr:nth-child(odd) td:nth-child(2) {
+        background-color: var(--row-odd);
+      }
+      
+      .standings-table tr:hover td:nth-child(2) {
+        background-color: var(--row-hover);
+      }
+      
+      /* Special rows second column background */
+      .standings-table tr.europaleague td:nth-child(2) {
+        background-color: var(--europaleague);
+      }
+      
+      .standings-table tr.conference-league td:nth-child(2) {
+        background-color: var(--conferenceLeague);
+      }
+      
+      .standings-table tr.relegation-direct td:nth-child(2) {
+        background-color: var(--relegation-direct);
+      }
+      
+      .standings-table tr.relegation-playoff td:nth-child(2) {
+        background-color: var(--relegation-playoff);
+      }
+      
+      /* Hover state for second column on special rows */
+      .standings-table tr.europaleague:hover td:nth-child(2) {
+        background-color: rgba(39, 61, 29, 1);
+      }
+      
+      .standings-table tr.conference-league:hover td:nth-child(2) {
+        background-color: rgba(63, 79, 60, 1);
+      }
+      
+      .standings-table tr.relegation-direct:hover td:nth-child(2) {
+        background-color: rgba(220, 53, 69, 0.3);
+      }
+      
+      .standings-table tr.relegation-playoff:hover td:nth-child(2) {
+        background-color: rgba(255, 193, 7, 0.2);
+      }
+    }
+  }
