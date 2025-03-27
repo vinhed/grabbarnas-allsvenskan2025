@@ -488,13 +488,15 @@ const FunStats = ({ stats, supportedTeams, teamLogos }) => {
         icon: "💙",
         color: "var(--accent)"
       },
-      stats.rivalryStats && {
-        title: "Fiercest Rivalry",
-        value: displayRivalry(stats.rivalryStats.teams, stats.rivalryStats.description),
-        rawValue: stats.rivalryStats.teams,
-        description: "Teams with most position switches",
-        icon: "⚔️",
-        color: getTeamColor(stats.rivalryStats.teams?.split(/,\s*|\s*&\s*/)[0]?.trim())
+      stats.leastBiasedFan && {
+        title: "Most Objective Fan",
+        value: displayMultiplePeople(stats.leastBiasedFan),
+        rawValue: stats.leastBiasedFan,
+        description: `Predicted their team exactly ${stats.leastBiasedValue === 0 ? 
+          'at their consensus position' : 
+          `${stats.leastBiasedValue} position${stats.leastBiasedValue !== 1 ? 's' : ''} from consensus`}`,
+        icon: "⚖️",
+        color: "#4cc9f0"
       },
       stats.mostBiasStat && {
         title: "Most Biased Fan",

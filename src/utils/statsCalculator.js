@@ -651,53 +651,54 @@ if (supportedTeams && Object.keys(supportedTeams).length > 0) {
       };
     }
   }
-}
+
+  // LEAST BIASED FAN - the fan whose prediction for their team is closest to consensus
+if (Object.keys(fanLoyalty).length > 0) {
+  // Calculate absolute bias (distance from consensus, regardless of direction)
+  const absBiasValues = Object.entries(fanLoyalty).map(([user, info]) => ({
+    user,
+    team: info.team,
+    position: info.position,
+    consensusPos: info.consensusPos,
+    absBias: Math.abs(info.bias) // Absolute value of bias
+  }));
   
-  // RIVALRY STATISTICS
-  const rivalryData = {};
-  const teams = Object.keys(sortedStandings);
+  // Sort by absolute bias (lowest first)
+  absBiasValues.sort((a, b) => a.absBias - b.absBias);
   
-  for (let i = 0; i < teams.length; i++) {
-    for (let j = i + 1; j < teams.length; j++) {
-      const team1 = teams[i];
-      const team2 = teams[j];
-      let switchCount = 0;
+  if (absBiasValues.length > 0) {
+    // Find the minimum absolute bias
+    const minAbsBias = absBiasValues[0].absBias;
+    
+    // Find all users with this minimum bias
+    const leastBiasedFans = absBiasValues
+      .filter(info => Math.abs(info.absBias - minAbsBias) < 0.0001);
+    
+    // Tiebreaker: if multiple fans have the same absolute bias,
+    // prefer the one whose team is ranked lower in consensus (it's harder to be objective about a bad team)
+    if (leastBiasedFans.length > 1) {
+      let worstTeamPosition = -1;
+      let finalLeastBiasedFan = leastBiasedFans[0].user;
       
-      // Count how many predictors switch these teams in their predictions
-      for (const userPredictions of Object.values(bets)) {
-        const pos1 = userPredictions.indexOf(team1);
-        const pos2 = userPredictions.indexOf(team2);
-        
-        if (pos1 !== -1 && pos2 !== -1) {
-          // Position in consensus vs position in user prediction
-          const consensusPos1 = teams.indexOf(team1);
-          const consensusPos2 = teams.indexOf(team2);
-          
-          if ((consensusPos1 < consensusPos2 && pos1 > pos2) || 
-              (consensusPos1 > consensusPos2 && pos1 < pos2)) {
-            switchCount++;
-          }
+      for (const fanInfo of leastBiasedFans) {
+        if (fanInfo.consensusPos > worstTeamPosition) {
+          worstTeamPosition = fanInfo.consensusPos;
+          finalLeastBiasedFan = fanInfo.user;
         }
       }
       
-      if (switchCount > 0) {
-        rivalryData[`${team1} vs ${team2}`] = switchCount;
-      }
+      stats.leastBiasedFan = finalLeastBiasedFan;
+    } else {
+      stats.leastBiasedFan = leastBiasedFans[0].user;
     }
-  }
-  
-  if (Object.keys(rivalryData).length > 0) {
-    const maxSwitches = Math.max(...Object.values(rivalryData));
-    const fiercestRivalries = Object.keys(rivalryData)
-      .filter(matchup => rivalryData[matchup] === maxSwitches);
     
-    if (fiercestRivalries.length > 0) {
-      stats.rivalryStats = {
-        teams: formatList(fiercestRivalries),
-        description: `${maxSwitches} participants switched their order`
-      };
-    }
+    // Store the bias value (how close they were to consensus)
+    stats.leastBiasedValue = minAbsBias;
   }
+}
+}
+
+
   
   return stats;
 };
