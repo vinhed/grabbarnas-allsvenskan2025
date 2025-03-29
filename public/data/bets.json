@@ -66,9 +66,9 @@
     "predictions": [
       "Elfsborg",
       "Hammarby",
-      "AIK",
-      "Djurgården",
       "Malmö FF",
+      "Djurgården",
+      "AIK",
       "Mjällby",
       "IFK Göteborg",
       "IK Sirius",
@@ -77,9 +77,9 @@
       "IFK Norrköping",
       "GAIS",
       "BP",
-      "IFK Värnamo",
+      "Östers IF",
       "Halmstads BK",
-      "Östers IF"
+      "IFK Värnamo"
     ],
     "supportedTeam": "AIK"
   },
