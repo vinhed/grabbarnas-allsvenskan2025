@@ -117,7 +117,7 @@ const AllsvenskanStandingsTable = ({ currentStandings, teamLogos, apiData, isMob
           let formClass = '';
           let formLabel = '';
           
-          switch(result.toLowerCase()) {
+          switch(result["matchResult"].toLowerCase()) {
             case 'w':
               formClass = 'form-win';
               formLabel = 'W';
