@@ -4,7 +4,7 @@
 export const fetchFullData = async () => {
   try {
     try {
-      const localResponse = await fetch(`httpw://www-1219.cc/api/allsvenskan/standings?nocache=${new Date().getTime()}`);
+      const localResponse = await fetch(`https://allsvenskan-proxy.onrender.com/api/allsvenskan/standings?nocache=${new Date().getTime()}`);
       if (!localResponse.ok) {
         localResponse = await fetch(`https://raw.githubusercontent.com/vinhed/grabbarnas-allsvenskan2025/refs/heads/main/public/data/standings.json?nocache=${new Date().getTime()}`);
       }
