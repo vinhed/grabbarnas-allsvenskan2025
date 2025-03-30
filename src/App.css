@@ -685,7 +685,6 @@ tr.relegation-playoff td.team-highlight {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  min-width: 120px;   /* Set minimum width for each column */
   max-width: 180px;   /* Set maximum width for each column */
 }
 
@@ -704,6 +703,14 @@ tr.relegation-playoff td.team-highlight {
   display: flex;
   align-items: center;
   width: 100%;
+}
+
+.team-name-with-logo-center {
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
 }
 
 /* Ensure the team name doesn't overflow */
@@ -3023,5 +3030,114 @@ input:checked + .toggle-slider:before {
 @media (max-width: 576px) {
   .header-title {
     font-size: 22px;
+  }
+}
+
+/* Display options container */
+.display-options {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 15px;
+}
+
+/* Toggle switch label container */
+.toggle-switch-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Label text */
+.toggle-label {
+  margin-right: 10px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* The toggle switch - the box around the slider */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+/* Hide default HTML checkbox */
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--bg-tertiary);
+  transition: .4s;
+  border-radius: 24px;
+  border: 1px solid var(--border-color);
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 2px;
+  background-color: var(--text-primary);
+  transition: .4s;
+  border-radius: 50%;
+}
+
+/* Styles for the "checked" state */
+input:checked+.toggle-slider {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+input:checked+.toggle-slider:before {
+  transform: translateX(25px);
+}
+
+/* Focus styles */
+input:focus+.toggle-slider {
+  box-shadow: 0 0 1px var(--accent);
+}
+
+/* Hover effects */
+.toggle-switch:hover .toggle-slider {
+  box-shadow: 0 0 5px rgba(58, 134, 255, 0.3);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .display-options {
+    justify-content: flex-start;
+    margin-bottom: 10px;
+  }
+
+  .toggle-label {
+    font-size: 0.8rem;
+  }
+
+  .toggle-switch {
+    width: 44px;
+    height: 22px;
+  }
+
+  .toggle-slider:before {
+    height: 16px;
+    width: 16px;
+  }
+
+  input:checked+.toggle-slider:before {
+    transform: translateX(22px);
   }
 }

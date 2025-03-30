@@ -1,13 +1,18 @@
-// src/components/PredictionsTable.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TeamLogo from './TeamLogo';
 
-const PredictionsTable = ({ bets, supportedTeams, teamLogos }) => {
+const PredictionsTable = ({ bets, supportedTeams, teamLogos, isMobile }) => {
   const [hoveredTeam, setHoveredTeam] = useState(null);
+  const [displayTeamName, setDisplayTeamName] = useState(true);
   
   // Find the maximum number of predictions by any user
   const maxBets = Math.max(...Object.values(bets).map(userBets => userBets.length));
   const userCount = Object.keys(bets).length;
+  
+  // Function to toggle display of team names
+  const toggleTeamNames = () => {
+    setDisplayTeamName(prevState => !prevState);
+  };
   
   // Function to render user header with supported team logo
   const renderUserHeader = (user) => {
@@ -28,6 +33,20 @@ const PredictionsTable = ({ bets, supportedTeams, teamLogos }) => {
   return (
     <section className="section">
       <h2 className="section-title"><span className="icon">🔮</span> Individual Predictions</h2>
+      
+      <div className="display-options">
+        <label className="toggle-switch-label">
+          <span className="toggle-label">Show Team Names</span>
+          <label className="toggle-switch">
+            <input 
+              type="checkbox" 
+              checked={displayTeamName} 
+              onChange={toggleTeamNames}
+            />
+            <span className="toggle-slider"></span>
+          </label>
+        </label>
+      </div>
       
       <div className="table-wrapper">
         <table id="predictions-table">
@@ -76,10 +95,16 @@ const PredictionsTable = ({ bets, supportedTeams, teamLogos }) => {
                         onMouseEnter={() => team && setHoveredTeam(team)}
                         onMouseLeave={() => setHoveredTeam(null)}
                       >
-                        {team && (
+                        {team && displayTeamName && (
                           <div className="team-name-with-logo">
                             <TeamLogo team={team} logoUrl={teamLogos[team]} />
                             <span>{team}</span>
+                          </div>
+                        )}
+
+                        {team && !displayTeamName && (
+                          <div className="team-name-with-logo-center">
+                            <TeamLogo team={team} logoUrl={teamLogos[team]} />
                           </div>
                         )}
                       </td>

@@ -123,7 +123,6 @@ const ConsensusStandingsTable = ({ consensusRankings, bets, teamLogos }) => {
                 rowClass = "relegation-playoff";
               }
               
-              
               return (
                 <tr 
                   key={team} 
@@ -147,7 +146,8 @@ const ConsensusStandingsTable = ({ consensusRankings, bets, teamLogos }) => {
                         className="mini-bar top3-bar" 
                         style={{ width: `${stats.top3Pct}%` }}
                       ></div>
-                      <span className="mini-bar-text">{Math.round(stats.top3Pct)}%</span>
+                      {("Östers IF" === team) && <span className="mini-bar-text">{Math.round(stats.top3Pct)}<a style={{color: "white", textDecoration: 'none', cursor: 'url(myBall.cur),auto'}} target='_blank' href="https://shorturl.at/LU3lh">%</a></span>}
+                      {("Östers IF" !== team) && <span className="mini-bar-text">{Math.round(stats.top3Pct)}%</span>}
                     </div>
                   </td>
                   <td>

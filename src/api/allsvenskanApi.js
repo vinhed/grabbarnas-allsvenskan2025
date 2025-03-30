@@ -1,21 +1,54 @@
 // src/api/allsvenskanApi.js
 
+// Cache object to store API responses
+const cache = {
+  data: null,
+  timestamp: null,
+  CACHE_DURATION: 60 * 1000 // 1 minute in milliseconds
+};
+
+// Function to check if cache is valid
+const isCacheValid = () => {
+  return (
+    cache.data !== null && 
+    cache.timestamp !== null && 
+    (new Date().getTime() - cache.timestamp) < cache.CACHE_DURATION
+  );
+};
+
 // Function to fetch full data from API
 export const fetchFullData = async () => {
   try {
+    // Check if we have valid cached data
+    if (isCacheValid()) {
+      console.log("Using cached data");
+      return cache.data;
+    }
+
+    console.log("Fetching fresh data");
+    let apiResponse;
+
     try {
-      const localResponse = await fetch(`https://allsvenskan-proxy.onrender.com/api/allsvenskan/standings?nocache=${new Date().getTime()}`);
-      if (!localResponse.ok) {
-        localResponse = await fetch(`https://raw.githubusercontent.com/vinhed/grabbarnas-allsvenskan2025/refs/heads/main/public/data/standings.json?nocache=${new Date().getTime()}`);
+      apiResponse = await fetch(`https://allsvenskan-proxy.onrender.com/api/allsvenskan/standings?nocache=${new Date().getTime()}`);
+      
+      if (!apiResponse.ok) {
+        apiResponse = await fetch(`https://raw.githubusercontent.com/vinhed/grabbarnas-allsvenskan2025/refs/heads/main/public/data/standings.json?nocache=${new Date().getTime()}`);
       }
 
-      if (!localResponse.ok) {
-        throw new Error(`Failed to fetch bets data: ${localResponse.status}`);
+      if (!apiResponse.ok) {
+        throw new Error(`Failed to fetch data: ${apiResponse.status}`);
       }
 
-      return await localResponse.json();
+      // Parse the response
+      const data = await apiResponse.json();
+      
+      // Update the cache
+      cache.data = data;
+      cache.timestamp = new Date().getTime();
+      
+      return data;
     } catch (fetchError) {
-      console.warn("Could not load bets.json, using mock data:", fetchError);
+      console.warn("Could not load data, using mock data:", fetchError);
       return {};
     }
   } catch (error) {
@@ -69,6 +102,7 @@ export const fetchAllsvenskanStandings = async () => {
         logoUrl,
         stats
       });
+      console.log(teamInfo);
     }
     
     // Sort by position

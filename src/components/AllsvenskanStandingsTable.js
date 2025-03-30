@@ -34,7 +34,7 @@ const AllsvenskanStandingsTable = ({ currentStandings, teamLogos, apiData, isMob
         const stats = {
           gp: 0, // Games played
           w: 0, // Wins
-          d: 0, // Draws
+          t: 0, // Ties
           l: 0, // Losses
           gf: 0, // Goals for
           ga: 0, // Goals against
@@ -79,7 +79,7 @@ const AllsvenskanStandingsTable = ({ currentStandings, teamLogos, apiData, isMob
           name: team,
           logo: teamLogos[team] || '',
           stats: {
-            gp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0
+            gp: 0, w: 0, t: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0
           },
           form: []
         });
@@ -235,7 +235,7 @@ const AllsvenskanStandingsTable = ({ currentStandings, teamLogos, apiData, isMob
                       {expandedView && (
                         <>
                           <td className="numeric-col">{team.stats.w}</td>
-                          <td className="numeric-col">{team.stats.d}</td>
+                          <td className="numeric-col">{team.stats.t}</td>
                           <td className="numeric-col">{team.stats.l}</td>
                         </>
                       )}
