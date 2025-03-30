@@ -208,5 +208,26 @@
       "Östers IF"
     ],
     "supportedTeam": "IK Sirius"
+  },
+  "Ida": {
+    "predictions": [
+      "Hammarby",
+      "Malmö FF",
+      "Djurgården",
+      "AIK",
+      "Mjällby",
+      "Elfsborg",
+      "BK Häcken",
+      "IK Sirius",
+      "GAIS",
+      "BP",
+      "IFK Norrköping",
+      "IFK Göteborg",
+      "Degerfors IF",
+      "Halmstads BK",
+      "Östers IF",
+      "IFK Värnamo"
+    ],
+    "supportedTeam": "AIK"
   }
 }
