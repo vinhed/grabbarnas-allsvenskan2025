@@ -29,7 +29,11 @@ export const fetchFullData = async () => {
     let apiResponse;
 
     try {
-      apiResponse = await fetch(`https://allsvenskan-proxy.onrender.com/api/allsvenskan/standings?nocache=${new Date().getTime()}`);
+      apiResponse = await fetch(`https://hs08oo4w4o8go40w8000sg0w.kopply.se/api/allsvenskan/standings?nocache=${new Date().getTime()}`);
+
+      if (!apiResponse.ok) {
+        apiResponse = await fetch(`https://allsvenskan-proxy.onrender.com/api/allsvenskan/standings?nocache=${new Date().getTime()}`);
+      }
       
       if (!apiResponse.ok) {
         apiResponse = await fetch(`https://raw.githubusercontent.com/vinhed/grabbarnas-allsvenskan2025/refs/heads/main/public/data/standings.json?nocache=${new Date().getTime()}`);
