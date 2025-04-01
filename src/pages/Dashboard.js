@@ -149,7 +149,7 @@ const Dashboard = ({
         bets={bets} 
         supportedTeams={supportedTeams}
         teamLogos={teamLogos} 
-        isMobile={useMobileTable}
+        isMobile={isMobile}
       />
     </div>
   );

@@ -3,8 +3,8 @@ import TeamLogo from './TeamLogo';
 
 const PredictionsTable = ({ bets, supportedTeams, teamLogos, isMobile }) => {
   const [hoveredTeam, setHoveredTeam] = useState(null);
-  const [displayTeamName, setDisplayTeamName] = useState(true);
-  
+  const [displayTeamName, setDisplayTeamName] = useState(window.innerWidth > 576);
+
   // Find the maximum number of predictions by any user
   const maxBets = Math.max(...Object.values(bets).map(userBets => userBets.length));
   const userCount = Object.keys(bets).length;
@@ -21,7 +21,7 @@ const PredictionsTable = ({ bets, supportedTeams, teamLogos, isMobile }) => {
     return (
       <div className="user-header">
         <span className="user-name">{user}</span>
-        {supportedTeam && (
+        {supportedTeam && displayTeamName && (
           <div className="supported-team">
             <TeamLogo team={supportedTeam} logoUrl={teamLogos[supportedTeam]} size="small" />
           </div>
