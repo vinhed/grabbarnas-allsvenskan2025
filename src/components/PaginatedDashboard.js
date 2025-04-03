@@ -38,7 +38,6 @@ const PaginatedDashboard = ({
       title: "Statistics & Predictions",
       icon: "📊",
       components: [
-        { name: "Statistics", component: <FunStats stats={funStats} supportedTeams={supportedTeams} teamLogos={teamLogos} /> },
         { name: "Individual Predictions", component: <PredictionsTable bets={bets} supportedTeams={supportedTeams} teamLogos={teamLogos} /> },
         { name: "Consensus Rankings", component: <ConsensusStandingsTable consensusRankings={sortedConsensusRankings} bets={bets} teamLogos={teamLogos} /> },
       ]

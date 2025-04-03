@@ -106,7 +106,6 @@ export const fetchAllsvenskanStandings = async () => {
         logoUrl,
         stats
       });
-      console.log(teamInfo);
     }
     
     // Sort by position

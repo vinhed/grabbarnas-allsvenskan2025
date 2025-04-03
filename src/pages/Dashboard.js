@@ -88,14 +88,7 @@ const Dashboard = ({
         apiData={apiData}
         supportedTeams={supportedTeams}
       />
-      
-      {/* Stats Cards */}
-      <StatsCards 
-        bets={bets} 
-        consensusRankings={sortedConsensusRankings} 
-        supportedTeams={supportedTeams}
-      />
-
+    
       {/* Performance Analysis Table */}
       <PerformanceAnalysisTable
         bets={bets}
