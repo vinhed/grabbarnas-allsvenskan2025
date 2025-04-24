@@ -167,6 +167,27 @@
     ],
     "supportedTeam": "Hammarby"
   },
+  "Linné": {
+    "predictions": [
+      "Malmö FF",
+      "Hammarby",
+      "Elfsborg",
+      "AIK",
+      "Djurgården",
+      "Mjällby",
+      "IFK Norrköping",
+      "BK Häcken",
+      "IFK Göteborg",
+      "GAIS",
+      "IK Sirius",
+      "Degerfors IF",
+      "BP",
+      "Östers IF",
+      "IFK Värnamo",
+      "Halmstads BK"
+    ],
+    "supportedTeam": "AIK"
+  },
   "William": {
     "predictions": [
       "AIK",
