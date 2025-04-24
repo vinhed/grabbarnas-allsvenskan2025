@@ -1,9 +1,8 @@
 // src/components/PerformanceAnalysisTable.js
 import React, { useState, useEffect } from 'react';
 import TeamLogo from './TeamLogo';
-import PersonPerformanceDetails from './PersonPerformanceDetails';
+import DetailedPredictionsModal from './DetailedPredictionsModal';
 import { fetchFullData } from '../api/allsvenskanApi';
-import './PersonPerformanceDetails.css';
 import './PerformanceAnalysisTable.css';
 
 const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile }) => {
@@ -13,6 +12,7 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile })
   const [error, setError] = useState(null);
   const [sortConfig, setSortConfig] = useState({ key: 'averageRating', direction: 'desc' });
   const [selectedPerson, setSelectedPerson] = useState(null);
+  const [showDetailedModal, setShowDetailedModal] = useState(false);
   const [viewMode, setViewMode] = useState('table'); // 'table' or 'cards'
 
   useEffect(() => {
@@ -147,8 +147,10 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile })
         }
       }
       
-      // Calculate the final score (120 - total score)
-      const finalScore = 120 - totalScore;
+      const maxPossibleDifference = 128;
+
+      // Calculate the final score (128 - total score)
+      const finalScore = maxPossibleDifference - totalScore;
       const teamsMatched = teamDetails.length;
       
       // Calculate best and worst team ratings
@@ -158,15 +160,8 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile })
       // Calculate average difference
       const averageDifference = teamsMatched > 0 ? (totalScore / teamsMatched).toFixed(2) : 'N/A';
       
-      // Use final score for display
-      const averageRating = teamsMatched > 0 ? finalScore.toFixed(0) : 'N/A';
-      
-      // Calculate accuracy as a percentage
-      // Maximum possible difference would be if all teams were at opposite ends
-      // For 16 teams, max diff would be (16-1) + (15-2) + ... + (1-16) = 120
-      const maxPossibleDifference = teamDetails.length * teamDetails.length / 2;
       const accuracy = teamsMatched > 0 
-        ? (100 - (totalScore / maxPossibleDifference * 100)).toFixed(1)
+        ? (100 - (totalScore / maxPossibleDifference * 100)).toFixed(2)
         : 'N/A';
       
       // Update team details with individual differences
@@ -177,7 +172,7 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile })
       results.push({
         person,
         averageDifference,
-        averageRating: finalScore.toFixed(0), // Use final score directly
+        averageRating: (finalScore / maxPossibleDifference * 100).toFixed(1),
         bestTeam,
         bestRating,
         worstTeam,
@@ -241,6 +236,18 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile })
     return sortConfig.direction === 'asc' ? ' ↑' : ' ↓';
   };
 
+  // Handle row click to show detailed predictions
+  const handleRowClick = (person) => {
+    setSelectedPerson(person);
+    setShowDetailedModal(true);
+  };
+
+  // Close the detailed predictions modal
+  const handleCloseModal = () => {
+    setShowDetailedModal(false);
+    setSelectedPerson(null);
+  };
+
   // Render table view
   const renderTableView = () => {
     return (
@@ -248,24 +255,16 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile })
         <table className="performance-table">
           <thead>
             <tr>
-              <th 
-                className="sortable-header"
-              >
+              <th>
+                #
+              </th>
+              <th>
                 Participant
               </th>
-              <th 
-                className="sortable-header"
-              >
+              <th>
                 Score
               </th>
-              <th 
-                className="sortable-header"
-              >
-                Accuracy
-              </th>
-              <th
-                className="sortable-header"
-              >
+              <th>
                 Avg. Diff
               </th>
               <th>Best</th>
@@ -281,8 +280,9 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile })
                 <tr 
                   key={person.person} 
                   className={`${medalClass} clickable-row`}
-                  onClick={() => setSelectedPerson(person.person)}
+                  onClick={() => handleRowClick(person.person)}
                 >
+                  <td>{position}</td>
                   <td>
                     <div className="participant-with-team">
                       <span className="participant-name">{person.person}</span>
@@ -294,7 +294,6 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile })
                     </div>
                   </td>
                   <td className="performance-rating">{person.averageRating}</td>
-                  <td>{person.accuracy}%</td>
                   <td>{person.averageDifference}</td>
                   <td className="best-prediction">
                     {person.bestTeam && (
@@ -334,7 +333,18 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile })
   return (
     <section className="section">
       <h2 className="section-title"><span className="icon">🏆</span> Prediction Performance Analysis</h2>
+      
       {renderTableView()}
+      
+      {/* Detailed Predictions Modal */}
+      {showDetailedModal && (
+        <DetailedPredictionsModal
+          person={selectedPerson}
+          data={performanceData}
+          teamLogos={teamLogos}
+          onClose={handleCloseModal}
+        />
+      )}
     </section>
   );
 };

@@ -29,21 +29,6 @@
   border-bottom: 1px solid var(--border-color, #333);
 }
 
-/* Clickable row styling */
-.clickable-row {
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-}
-
-.clickable-row:hover {
-  background-color: rgba(58, 134, 255, 0.1);
-}
-
-.clickable-row:active {
-  transform: translateY(1px);
-  background-color: rgba(58, 134, 255, 0.15);
-}
-
 .performance-rating {
   font-size: 1.1rem;
   font-weight: 700;

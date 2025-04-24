@@ -179,15 +179,6 @@ td:first-child {
   width: 40px;
 }
 
-/* Ensure first column matches row background */
-tr:nth-child(even) td:first-child {
-  background-color: var(--row-even);
-}
-
-tr:nth-child(odd) td:first-child {
-  background-color: var(--row-odd);
-}
-
 /* Ensure first column background on hover */
 tr:hover td:first-child {
   background-color: var(--row-hover);
