@@ -1,10 +1,7 @@
 // src/components/PaginatedDashboard.js
 import React, { useState, useEffect } from 'react';
-import StatsCards from './StatsCard';
-import FunStats from './FunStats';
 import ConsensusStandingsTable from './ConsensusStandingsTable';
 import PredictionsTable from './PredictionsTable';
-import EnhancedPredictionTracker from './EnhancedPredictionTracker';
 import AllsvenskanStandingsTable from './AllsvenskanStandingsTable';
 import PerformanceAnalysisTable from './PerformanceAnalysisTable';
 import MobilePaginatedDashboard from './MobilePaginatedDashboard';

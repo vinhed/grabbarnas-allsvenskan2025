@@ -20,7 +20,7 @@
     border-radius: 12px;
     width: 90%;
     max-width: 700px;
-    max-height: 90vh;
+    height: 826px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
@@ -111,7 +111,6 @@
     flex-grow: 1;
     /* Adjust height to ensure no scrollbar appears */
     height: auto;
-    max-height: calc(90vh - 150px); /* Account for header and summary */
     overflow: auto; /* Only show scrollbar if absolutely necessary */
   }
   
@@ -128,6 +127,7 @@
     top: 0;
     z-index: 10;
     font-size: 0.9rem;
+    text-align: center;
   }
   
   .predictions-table td {
@@ -203,7 +203,6 @@
   @media (max-width: 768px) {
     .detailed-predictions-modal {
       width: 95%;
-      max-height: 80vh;
     }
     
     .modal-header h3 {
