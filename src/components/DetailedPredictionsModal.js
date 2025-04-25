@@ -41,12 +41,7 @@ const DetailedPredictionsModal = ({ person, data, teamLogos, onClose }) => {
             </thead>
             <tbody>
               {sortedTeamDetails.map((detail) => {
-                // Calculate a color gradient based on difference
-                // Green for small differences, red for large ones
-                const maxDifference = 16; // Max possible difference
-                const colorIntensity = Math.min(detail.difference / maxDifference, 1);
-                const colorClass = colorIntensity < 0.3 ? 'good' : 
-                                  colorIntensity < 0.6 ? 'average' : 'poor';
+                const colorClass = detail.difference <= 2 ? 'good' : detail.difference <= 5 ? 'average' : 'poor';
                 
                 return (
                   <tr key={detail.team} className={`prediction-row ${colorClass}`}>
