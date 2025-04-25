@@ -35,6 +35,32 @@
   color: var(--accent, #3a86ff);
 }
 
+/* Statistics styling */
+.perfect-picks {
+  font-weight: 700;
+  color: #06d6a0;
+  text-align: center;
+}
+
+.top3-accuracy {
+  font-weight: 700;
+  color: #ffd700; /* gold */
+  text-align: center;
+}
+
+.relegation-accuracy {
+  font-weight: 700;
+  color: #ef476f;
+  text-align: center;
+}
+
+/* New outlier points styling */
+.outlier-points {
+  font-weight: 700;
+  color: #9d4edd; /* purple */
+  text-align: center;
+}
+
 .team-prediction {
   display: flex;
   align-items: center;
@@ -54,7 +80,7 @@
   font-weight: 600;
   background-color: rgba(58, 134, 255, 0.15);
   color: var(--accent, #3a86ff);
-  margin-left: auto;
+  margin-left: 0;
 }
 
 .best-prediction .prediction-rating {
@@ -232,31 +258,34 @@
   font-weight: 600;
 }
 
-.performance-card .card-predictions {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.performance-card .prediction {
-  background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 6px;
-  padding: 8px 12px;
-}
-
-.performance-card .prediction-label {
-  font-size: 0.7rem;
-  color: var(--text-secondary, #aaa);
-  margin-bottom: 6px;
-}
-
-.performance-card .team-prediction {
-  display: flex;
+/* Stats pills for metrics in card view */
+.stats-pill {
+  display: inline-flex;
   align-items: center;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  margin-right: 5px;
 }
 
-.performance-card .team-prediction .prediction-rating {
-  margin-left: auto;
+.perfect-pill {
+  background-color: rgba(6, 214, 160, 0.15);
+  color: #06d6a0;
+}
+
+.top3-pill {
+  background-color: rgba(255, 215, 0, 0.15);
+  color: #ffd700;
+}
+
+.relegation-pill {
+  background-color: rgba(239, 71, 111, 0.15);
+  color: #ef476f;
+}
+
+.outlier-pill {
+  background-color: rgba(157, 78, 221, 0.15);
+  color: #9d4edd;
 }
 
 /* Responsive adjustments */
@@ -291,20 +320,18 @@
     display: none;
   }
   
-  /* Show cards when in card mode */
-  .view-toggle-btn.active[class*="cards"] ~ .table-wrapper {
-    display: none;
-  }
-  
-  /* Show table when in table mode */
-  .view-toggle-btn.active[class*="table"] ~ .mobile-performance-cards {
-    display: none;
-  }
-  
   /* Optimize table on smaller screens */
   .performance-table th:nth-child(4),
-  .performance-table td:nth-child(4) {
-    display: none; /* Hide average difference column */
+  .performance-table td:nth-child(4),
+  .performance-table th:nth-child(5),
+  .performance-table td:nth-child(5),
+  .performance-table th:nth-child(6),
+  .performance-table td:nth-child(6),
+  .performance-table th:nth-child(7),
+  .performance-table td:nth-child(7),
+  .performance-table th:nth-child(8),
+  .performance-table td:nth-child(8) {
+    display: none; /* Hide additional columns on mobile */
   }
   
   .participant-name {
@@ -333,7 +360,6 @@
 }
 
 @media (max-width: 576px) {
-  
   .performance-card .card-header {
     padding: 10px;
   }

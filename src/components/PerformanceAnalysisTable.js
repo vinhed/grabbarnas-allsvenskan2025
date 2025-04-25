@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import TeamLogo from './TeamLogo';
 import DetailedPredictionsModal from './DetailedPredictionsModal';
 import { fetchFullData } from '../api/allsvenskanApi';
+import { teamNameFormat } from '../utils/formatHelpers';
 import './PerformanceAnalysisTable.css';
 
 const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile }) => {
@@ -99,6 +100,49 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile })
     const hasSeasonStarted = actualStandings.length > 0 && 
                              actualStandings.every(team => team && team.trim() !== '');
     
+    // First, calculate average position for each team across all predictions
+    const teamConsensusPositions = {};
+    const teamPredictionCounts = {};
+    
+    // Function to normalize team names using the mapping
+    const normalizeTeamName = (name) => {
+      return teamNameFormat[name] || name;
+    };
+  
+    // Initialize with all teams
+    for (const team of actualStandings) {
+      const normalizedTeam = normalizeTeamName(team);
+      teamConsensusPositions[normalizedTeam] = 0;
+      teamPredictionCounts[normalizedTeam] = 0;
+    }
+    
+    // Sum up all predictions
+    for (const [person, prediction] of Object.entries(predictions)) {
+      if (!Array.isArray(prediction)) continue;
+      
+      for (let i = 0; i < prediction.length; i++) {
+        const team = prediction[i];
+        const normalizedTeam = normalizeTeamName(team);
+        const predictedPosition = i + 1;
+        
+        if (teamConsensusPositions.hasOwnProperty(normalizedTeam)) {
+          teamConsensusPositions[normalizedTeam] += predictedPosition;
+          teamPredictionCounts[normalizedTeam]++;
+        }
+      }
+    }
+    
+    // Calculate average position for each team
+    const teamAveragePositions = {};
+    for (const team in teamConsensusPositions) {
+      if (teamPredictionCounts[team] > 0) {
+        teamAveragePositions[team] = teamConsensusPositions[team] / teamPredictionCounts[team];
+      } else {
+        teamAveragePositions[team] = 0; // No predictions for this team
+      }
+    }
+    
+    // Process each person's predictions
     for (const [person, prediction] of Object.entries(predictions)) {
       // Skip if prediction is not an array
       if (!Array.isArray(prediction)) continue;
@@ -108,6 +152,11 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile })
       let worstDifference = -Infinity;
       let bestTeam = '';
       let worstTeam = '';
+      let perfectPicks = 0;
+      let top3Correct = 0;
+      let relegationCorrect = 0;
+      let outlierPoints = 0;
+      let bestOutlier = { team: '', deviation: 0 };
       const teamDetails = [];
       
       // If season hasn't started, use consensus standings
@@ -116,14 +165,29 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile })
       // Calculate metrics for each team in the prediction
       for (let i = 0; i < prediction.length; i++) {
         const team = prediction[i];
+        const normalizedTeam = normalizeTeamName(team);
         const predictedPosition = i + 1;
         
-        // Find the actual position in standings
-        const actualPosition = standingsToUse.indexOf(team) + 1;
+        // Find the actual position in standings using normalized team names
+        let actualPosition = 0;
+        for (let j = 0; j < standingsToUse.length; j++) {
+          const standingTeam = standingsToUse[j];
+          const normalizedStandingTeam = normalizeTeamName(standingTeam);
+          
+          if (normalizedStandingTeam === normalizedTeam) {
+            actualPosition = j + 1;
+            break;
+          }
+        }
         
         if (actualPosition > 0) {
           const positionDifference = Math.abs(predictedPosition - actualPosition);
           totalScore += positionDifference;
+          
+          // Check if this is a perfect pick (position difference = 0)
+          if (positionDifference === 0) {
+            perfectPicks++;
+          }
           
           // Track best prediction (smallest difference)
           if (positionDifference < bestDifference) {
@@ -137,18 +201,62 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile })
             worstTeam = team;
           }
           
+          // Calculate consensus deviation
+          const avgPosition = teamAveragePositions[normalizedTeam] || 0;
+          const consensusDeviation = Math.abs(predictedPosition - avgPosition);
+          
+          // Check if this is an outlier prediction that was correct
+          // Outlier definition: >2 positions from consensus AND better than average prediction
+          const isOutlier = consensusDeviation > 2 && positionDifference < consensusDeviation;
+          
+          // Award outlier points based on how much better the prediction was 
+          // compared to the consensus and how far from consensus
+          if (isOutlier) {
+            const outlierScore = consensusDeviation * (consensusDeviation - positionDifference);
+            outlierPoints += outlierScore;
+            
+            // Track the best outlier prediction
+            if (outlierScore > bestOutlier.deviation) {
+              bestOutlier = { 
+                team, 
+                deviation: outlierScore,
+                predictedPosition,
+                actualPosition,
+                consensusPosition: Math.round(avgPosition)
+              };
+            }
+          }
+          
           // Store details for each team
           teamDetails.push({
             team,
             predictedPosition,
             actualPosition,
-            difference: positionDifference
+            difference: positionDifference,
+            consensusPosition: Math.round(avgPosition),
+            consensusDeviation,
+            isOutlier
           });
+          
+          // Check if this team is in the actual top 3
+          if (actualPosition <= 3 && predictedPosition <= 3) {
+            top3Correct++;
+          }
+          
+          // Check if this team is in the relegation zone (assuming bottom 2 teams)
+          const relegationZoneSize = 2;
+          const totalTeams = prediction.length;
+          if (actualPosition > totalTeams - relegationZoneSize && 
+              predictedPosition > totalTeams - relegationZoneSize) {
+            relegationCorrect++;
+          }
+        } else {
+          console.warn(`Team not found in standings: ${team} (normalized: ${normalizedTeam})`);
         }
       }
       
       const maxPossibleDifference = 128;
-
+  
       // Calculate the final score (128 - total score)
       const finalScore = maxPossibleDifference - totalScore;
       const teamsMatched = teamDetails.length;
@@ -163,6 +271,13 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile })
       const accuracy = teamsMatched > 0 
         ? (100 - (totalScore / maxPossibleDifference * 100)).toFixed(2)
         : 'N/A';
+      
+      // Calculate Top 3 accuracy percentage
+      const top3Accuracy = ((top3Correct / 3) * 100).toFixed(0);
+      
+      // Calculate relegation accuracy percentage
+      const relegationZoneSize = 2;
+      const relegationAccuracy = ((relegationCorrect / relegationZoneSize) * 100).toFixed(0);
       
       // Update team details with individual differences
       teamDetails.forEach(detail => {
@@ -180,7 +295,12 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile })
         accuracy,
         supportedTeam: supportedTeams[person],
         teamDetails,
-        totalScore
+        totalScore,
+        perfectPicks,
+        top3Accuracy,
+        relegationAccuracy,
+        outlierPoints: outlierPoints.toFixed(0),
+        bestOutlier: outlierPoints > 0 ? bestOutlier : null
       });
     }
     
@@ -211,29 +331,6 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile })
       }
       return 0;
     });
-  };
-
-  // Handle column header click for sorting
-  const handleSort = (key, event) => {
-    // Stop event propagation to prevent triggering row click
-    if (event) {
-      event.stopPropagation();
-    }
-    
-    let direction = 'asc';
-    if (sortConfig.key === key && sortConfig.direction === 'asc') {
-      direction = 'desc';
-    }
-    setSortConfig({ key, direction });
-    
-    setPerformanceData(sortData(performanceData, { key, direction }));
-  };
-
-  // Helper to render sort indicator arrows
-  const renderSortIndicator = (columnKey) => {
-    if (sortConfig.key !== columnKey) return null;
-    
-    return sortConfig.direction === 'asc' ? ' ↑' : ' ↓';
   };
 
   // Handle row click to show detailed predictions
@@ -267,6 +364,18 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile })
               <th>
                 Avg. Diff
               </th>
+              <th>
+                Perfect
+              </th>
+              <th>
+                Top 3
+              </th>
+              <th>
+                Releg.
+              </th>
+              <th>
+              Outlier Score
+              </th>
               <th>Best</th>
               <th>Worst</th>
             </tr>
@@ -295,11 +404,15 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile })
                   </td>
                   <td className="performance-rating">{person.averageRating}</td>
                   <td>{person.averageDifference}</td>
+                  <td className="perfect-picks">{person.perfectPicks}</td>
+                  <td className="top3-accuracy">{person.top3Accuracy}%</td>
+                  <td className="relegation-accuracy">{person.relegationAccuracy}%</td>
+                  <td className="outlier-points">{person.outlierPoints}</td>
                   <td className="best-prediction">
                     {person.bestTeam && (
                       <div className="team-prediction">
                         {<TeamLogo team={person.bestTeam} logoUrl={teamLogos[person.bestTeam]} />}
-                        {!isMobile && <span>{person.bestTeam}</span>}
+                        {false && <span>{person.bestTeam}</span>}
                         <span className="prediction-rating"> ({person.bestRating})</span>
                       </div>
                     )}
@@ -308,7 +421,7 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile })
                     {person.worstTeam && (
                       <div className="team-prediction">
                         {<TeamLogo team={person.worstTeam} logoUrl={teamLogos[person.worstTeam]} />}
-                        {!isMobile && <span>{person.worstTeam}</span>}
+                        {false && <span>{person.worstTeam}</span>}
                         <span className="prediction-rating"> ({person.worstRating})</span>
                       </div>
                     )}
