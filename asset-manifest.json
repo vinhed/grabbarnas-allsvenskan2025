@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/grabbarnas-allsvenskan2025/static/css/main.c16b4724.css",
-    "main.js": "/grabbarnas-allsvenskan2025/static/js/main.3a2f7aef.js",
+    "main.js": "/grabbarnas-allsvenskan2025/static/js/main.8d6ee788.js",
     "index.html": "/grabbarnas-allsvenskan2025/index.html",
     "main.c16b4724.css.map": "/grabbarnas-allsvenskan2025/static/css/main.c16b4724.css.map",
-    "main.3a2f7aef.js.map": "/grabbarnas-allsvenskan2025/static/js/main.3a2f7aef.js.map"
+    "main.8d6ee788.js.map": "/grabbarnas-allsvenskan2025/static/js/main.8d6ee788.js.map"
   },
   "entrypoints": [
     "static/css/main.c16b4724.css",
-    "static/js/main.3a2f7aef.js"
+    "static/js/main.8d6ee788.js"
   ]
 }
