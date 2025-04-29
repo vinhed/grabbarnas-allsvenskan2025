@@ -203,11 +203,11 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile })
           
           // Calculate consensus deviation
           const avgPosition = teamAveragePositions[normalizedTeam] || 0;
-          const consensusDeviation = Math.abs(predictedPosition - avgPosition);
+          const consensusDeviation = avgPosition - predictedPosition;
           
           // Check if this is an outlier prediction that was correct
           // Outlier definition: >2 positions from consensus AND better than average prediction
-          const isOutlier = consensusDeviation > 2 && positionDifference < consensusDeviation;
+          const isOutlier = consensusDeviation > 2 && positionDifference < consensusDeviation && avgPosition - actualPosition >= 2;
           
           // Award outlier points based on how much better the prediction was 
           // compared to the consensus and how far from consensus
@@ -244,7 +244,7 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile })
           }
           
           // Check if this team is in the relegation zone (assuming bottom 2 teams)
-          const relegationZoneSize = 2;
+          const relegationZoneSize = 3;
           const totalTeams = prediction.length;
           if (actualPosition > totalTeams - relegationZoneSize && 
               predictedPosition > totalTeams - relegationZoneSize) {
@@ -276,7 +276,7 @@ const PerformanceAnalysisTable = ({ bets, teamLogos, supportedTeams, isMobile })
       const top3Accuracy = ((top3Correct / 3) * 100).toFixed(0);
       
       // Calculate relegation accuracy percentage
-      const relegationZoneSize = 2;
+      const relegationZoneSize = 3;
       const relegationAccuracy = ((relegationCorrect / relegationZoneSize) * 100).toFixed(0);
       
       // Update team details with individual differences

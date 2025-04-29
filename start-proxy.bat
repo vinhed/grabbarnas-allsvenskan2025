@@ -1,1 +1,0 @@
-node allsvenskan-standings/proxy.js
