@@ -1,0 +1,98 @@
+.ranking-chart-container {
+  background-color: var(--bg-secondary);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  border: 1px solid var(--border-color);
+}
+
+.chart-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  color: var(--text-primary);
+}
+
+.recharts-tooltip-wrapper {
+  z-index: 1000;
+}
+
+.recharts-default-tooltip {
+  background-color: var(--bg-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 8px !important;
+  padding: 10px !important;
+}
+
+.recharts-tooltip-label {
+  color: var(--text-primary) !important;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.recharts-tooltip-item {
+  color: var(--text-primary) !important;
+}
+
+.recharts-legend-wrapper {
+  padding-top: 10px !important;
+}
+
+.recharts-legend-item-text {
+  color: var(--text-primary) !important;
+}
+
+.round-range-selector {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.range-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.range-control label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.round-select {
+  padding: 6px 12px;
+  border-radius: 6px;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.round-select:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(58, 134, 255, 0.2);
+}
+
+.round-select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+  .ranking-chart-container {
+    padding: 15px 10px;
+  }
+  
+  .chart-title {
+    font-size: 1rem;
+  }
+  
+  .round-range-selector {
+    flex-direction: column;
+    gap: 15px;
+  }
+}

@@ -1,9 +1,9 @@
-// src/components/PaginatedDashboard.js
 import React, { useState, useEffect } from 'react';
 import ConsensusStandingsTable from './ConsensusStandingsTable';
 import PredictionsTable from './PredictionsTable';
 import AllsvenskanStandingsTable from './AllsvenskanStandingsTable';
 import PerformanceAnalysisTable from './PerformanceAnalysisTable';
+import HistoryTable from './HistoryTable';
 import MobilePaginatedDashboard from './MobilePaginatedDashboard';
 import './MobilePaginatedDashboard.css';
 
@@ -21,7 +21,6 @@ const PaginatedDashboard = ({
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
 
-  // Page definitions with icons
   const pages = [
     {
       title: "Performance & Standings",
@@ -38,11 +37,17 @@ const PaginatedDashboard = ({
         { name: "Individual Predictions", component: <PredictionsTable bets={bets} supportedTeams={supportedTeams} teamLogos={teamLogos} /> },
         { name: "Consensus Rankings", component: <ConsensusStandingsTable consensusRankings={sortedConsensusRankings} bets={bets} teamLogos={teamLogos} /> },
       ]
+    },
+    {
+      title: "History",
+      icon: "📈",
+      components: [
+        { name: "Historical Rankings", component: <HistoryTable bets={bets} teamLogos={teamLogos} supportedTeams={supportedTeams} isMobile={isMobile} /> }
+      ]
     }
   ];
 
   useEffect(() => {
-    // Load user preference if available
     try {
       const savedPage = localStorage.getItem('currentPage');
       if (savedPage !== null) {
@@ -53,7 +58,6 @@ const PaginatedDashboard = ({
     }
   }, []);
 
-  // Save page preference when it changes
   useEffect(() => {
     try {
       localStorage.setItem('currentPage', currentPage.toString());
@@ -62,7 +66,6 @@ const PaginatedDashboard = ({
     }
   }, [currentPage]);
 
-  // Handle swipe gestures for mobile
   useEffect(() => {
     const minSwipeDistance = 999999999;
 
@@ -100,7 +103,6 @@ const PaginatedDashboard = ({
     };
   }, [touchStart, touchEnd, currentPage, pages.length]);
 
-  // Navigate to other page
   const navigatePage = (direction) => {
     if (direction === 'next' && currentPage < pages.length - 1) {
       setCurrentPage(prev => prev + 1);
@@ -111,7 +113,6 @@ const PaginatedDashboard = ({
 
   return (
     <div className="paginated-dashboard">
-      {/* Mobile Dashboard for small screens */}
       <MobilePaginatedDashboard 
         currentPage={currentPage} 
         onChangePage={setCurrentPage} 
@@ -121,7 +122,6 @@ const PaginatedDashboard = ({
         currentStandings={currentStandings}
       />
       
-      {/* Tab Navigation */}
       <div className="tab-navigation">
         {pages.map((page, index) => (
           <button 
@@ -134,7 +134,6 @@ const PaginatedDashboard = ({
         ))}
       </div>
       
-      {/* Page Content */}
       <div className="page-content">
         {pages[currentPage].components.map((item, index) => (
           <div key={index} className="page-component">
@@ -143,7 +142,6 @@ const PaginatedDashboard = ({
         ))}
       </div>
       
-      {/* Fixed bottom navigation for mobile */}
       <div className="mobile-page-navigation">
         <button 
           className={`mobile-nav-button ${currentPage === 0 ? 'active' : ''}`}
@@ -158,6 +156,13 @@ const PaginatedDashboard = ({
         >
           <span className="nav-icon">{pages[1].icon}</span>
           <span className="nav-text">{pages[1].title}</span>
+        </button>
+        <button 
+          className={`mobile-nav-button ${currentPage === 2 ? 'active' : ''}`}
+          onClick={() => setCurrentPage(2)}
+        >
+          <span className="nav-icon">{pages[2].icon}</span>
+          <span className="nav-text">{pages[2].title}</span>
         </button>
       </div>
       

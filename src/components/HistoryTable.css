@@ -1,0 +1,226 @@
+.round-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: var(--bg-tertiary);
+  border-radius: 10px;
+}
+
+.round-selector label {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.round-dropdown {
+  padding: 8px 15px;
+  border-radius: 8px;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.round-dropdown:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(58, 134, 255, 0.2);
+}
+
+.round-dropdown:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.3);
+}
+
+.history-table-wrapper {
+  overflow-x: auto;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 15px;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.history-table th {
+  text-align: left;
+  padding: 12px 15px;
+  background-color: var(--header-bg, #2a2a2a);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  white-space: nowrap;
+}
+
+.history-table td {
+  padding: 10px 15px;
+  border-bottom: 1px solid var(--border-color, #333);
+}
+
+.history-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.history-table tbody tr:hover {
+  background-color: var(--row-hover);
+}
+
+.history-table tr.medal-1 {
+  background-color: rgba(255, 215, 0, 0.08);
+}
+
+.history-table tr.medal-1 .performance-rating {
+  color: gold;
+}
+
+.history-table tr.medal-2 {
+  background-color: rgba(192, 192, 192, 0.08);
+}
+
+.history-table tr.medal-2 .performance-rating {
+  color: silver;
+}
+
+.history-table tr.medal-3 {
+  background-color: rgba(205, 127, 50, 0.08);
+}
+
+.history-table tr.medal-3 .performance-rating {
+  color: #cd7f32;
+}
+
+.performance-rating {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent, #3a86ff);
+}
+
+.perfect-picks {
+  font-weight: 700;
+  color: #06d6a0;
+  text-align: center;
+}
+
+.top3-accuracy {
+  font-weight: 700;
+  color: #ffd700;
+  text-align: center;
+}
+
+.relegation-accuracy {
+  font-weight: 700;
+  color: #ef476f;
+  text-align: center;
+}
+
+.participant-with-team {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.position-change {
+  text-align: center;
+  font-weight: 600;
+}
+
+.position-change.up {
+  color: #06d6a0;
+}
+
+.position-change.down {
+  color: #ef476f;
+}
+
+.position-change.same {
+  color: var(--text-secondary);
+}
+
+.position-change.new {
+  color: #9d4edd;
+}
+
+.history-info {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.round-navigation {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.round-nav-btn {
+  padding: 6px 12px;
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.round-nav-btn:hover:not(:disabled) {
+  background-color: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.round-nav-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .round-selector {
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+  }
+  
+  .history-table th,
+  .history-table td {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+  
+  .participant-name {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .history-table th:last-child,
+  .history-table td:last-child {
+    display: none;
+  }
+}
+
+.loading,
+.error {
+  padding: 30px;
+  text-align: center;
+  color: var(--text-secondary);
+  font-style: italic;
+  background-color: var(--bg-tertiary);
+  border-radius: 8px;
+  margin-top: 15px;
+}
+
+.error {
+  color: #ef476f;
+  background-color: rgba(239, 71, 111, 0.1);
+}
