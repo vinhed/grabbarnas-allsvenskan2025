@@ -19,7 +19,7 @@ const HistoryTable = ({ bets, teamLogos, supportedTeams, isMobile }) => {
   const fetchHistoryData = async () => {
     try {
       setLoading(true);
-      const response = await fetch('https://hs08oo4w4o8go40w8000sg0w.kopply.se/api/allsvenskan/history');
+      const response = await fetch('https://wggook008s4ko4c0g0gcssgk.kopply.se/api/allsvenskan/history');
       
       if (!response.ok) {
         throw new Error('Failed to fetch history data');
