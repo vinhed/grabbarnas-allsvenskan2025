@@ -29,7 +29,7 @@ export const fetchFullData = async () => {
     let apiResponse;
 
     try {
-      apiResponse = await fetch(`https://wggook008s4ko4c0g0gcssgk.kopply.se/api/allsvenskan/standings?nocache=${new Date().getTime()}`);
+      apiResponse = await fetch(`https://xoskkowgwcogcs0084ws4scg.coolify.s1219.com/api/allsvenskan/standings?nocache=${new Date().getTime()}`);
 
       if (!apiResponse.ok) {
         apiResponse = await fetch(`https://allsvenskan-proxy.onrender.com/api/allsvenskan/standings?nocache=${new Date().getTime()}`);
