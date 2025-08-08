@@ -16,7 +16,7 @@ const HistoryTable = ({ bets, teamLogos, supportedTeams, isMobile }) => {
     fetchHistoryData();
   }, []);
 
-  const fetchHistoryData = async () => {
+  const fetchHistoryData = async () => { 
     try {
       setLoading(true);
       const response = await fetch('https://xoskkowgwcogcs0084ws4scg.coolify.s1219.com/api/allsvenskan/history');
