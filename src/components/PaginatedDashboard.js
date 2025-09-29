@@ -37,6 +37,13 @@ const PaginatedDashboard = ({
         { name: "Individual Predictions", component: <PredictionsTable bets={bets} supportedTeams={supportedTeams} teamLogos={teamLogos} /> },
         { name: "Consensus Rankings", component: <ConsensusStandingsTable consensusRankings={sortedConsensusRankings} bets={bets} teamLogos={teamLogos} /> },
       ]
+    },
+    {
+      title: "History",
+      icon: "📈",
+      components: [
+        { name: "Historical Rankings", component: <HistoryTable bets={bets} teamLogos={teamLogos} supportedTeams={supportedTeams} isMobile={isMobile} /> }
+      ]
     }
   ];
 
