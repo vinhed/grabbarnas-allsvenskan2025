@@ -149,13 +149,6 @@ const PaginatedDashboard = ({
           <span className="nav-icon">{pages[1].icon}</span>
           <span className="nav-text">{pages[1].title}</span>
         </button>
-        <button 
-          className={`mobile-nav-button ${currentPage === 2 ? 'active' : ''}`}
-          onClick={() => setCurrentPage(2)}
-        >
-          <span className="nav-icon">{pages[2].icon}</span>
-          <span className="nav-text">{pages[2].title}</span>
-        </button>
       </div>
       
     </div>
