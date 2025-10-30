@@ -3,7 +3,6 @@ import ConsensusStandingsTable from './ConsensusStandingsTable';
 import PredictionsTable from './PredictionsTable';
 import AllsvenskanStandingsTable from './AllsvenskanStandingsTable';
 import PerformanceAnalysisTable from './PerformanceAnalysisTable';
-import HistoryTable from './HistoryTable';
 import MobilePaginatedDashboard from './MobilePaginatedDashboard';
 import './MobilePaginatedDashboard.css';
 
@@ -36,13 +35,6 @@ const PaginatedDashboard = ({
       components: [
         { name: "Individual Predictions", component: <PredictionsTable bets={bets} supportedTeams={supportedTeams} teamLogos={teamLogos} /> },
         { name: "Consensus Rankings", component: <ConsensusStandingsTable consensusRankings={sortedConsensusRankings} bets={bets} teamLogos={teamLogos} /> },
-      ]
-    },
-    {
-      title: "History",
-      icon: "📈",
-      components: [
-        { name: "Historical Rankings", component: <HistoryTable bets={bets} teamLogos={teamLogos} supportedTeams={supportedTeams} isMobile={isMobile} /> }
       ]
     }
   ];
